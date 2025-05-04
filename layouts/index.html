@@ -1,0 +1,606 @@
+{{ define "main" }}
+{{/* hero section */}}
+{{ with .Params.hero_section }}
+{{ if .enable }}
+<section class="h-full w-full bg-slate-100 dark:bg-main">
+  <div class="relative top-0">
+    <div class="absolute w-full h-full">
+      {{ $dark_shadow := "images/dev/dark_shadow.png" | relURL }}
+      <div style="mask-image: url('{{ $dark_shadow }}')"
+        class="w-full h-full bg-no-repeat bg-top-center absolute bg-slate-100 dark:bg-main"></div>
+      {{ $dark_doted := "images/dev/dark_doted_layer.png" | relURL }}
+      <div
+        style="background-image: radial-gradient(at top, transparent 0%, #05101a 80%, #05101a 100%), url('{{ $dark_doted }}');"
+        class="w-3/4 h-full left-1/2 -translate-x-1/2 bg-no-repeat bg-top-center absolute hidden dark:block">
+      </div>
+      {{ $light_doted := "images/dev/light_doted_layer.png" | relURL }}
+      <div
+        style="background-image: radial-gradient(at top, transparent 0%, #f1f5f9 80%, #f1f5f9 100%), url('{{ $light_doted }}');"
+        class="w-3/4 h-full left-1/2 -translate-x-1/2 bg-no-repeat bg-top-center absolute dark:hidden">
+      </div>
+      <div class="relative z-10 container mx-auto">
+        {{ partial "header_smoke.html" . }}
+      </div>
+    </div>
+
+    <div class="relative z-20">
+      <div class="container mx-auto px-5 sm:px-10 lg:px-16 pt-20 lg:pt-12">
+        <div class="min-h-[600px] lg:grid grid-cols-2 lg:gap-x-16 place-items-center">
+          <div class="swiper heroSwiper lg:max-w-[450px] xl:max-w-[550px]">
+            <ul class="swiper-wrapper lg:items-center">
+              {{ range .slides }}
+              <li class="swiper-slide">
+                <div class="mb-6">
+                  <h1
+                    class="font-poppins font-bold text-3xl lg:text-[46px] text-slate-950 dark:text-white main-heading break-words tracking-[-1px] leading-[130%]">
+                    {{ .title | safeHTML }}
+                  </h1>
+                  <p class="text-slate-700 dark:text-slate-300 font-poppins text-[21px] leading-[150%] mt-4">
+                    {{ .details | safeHTML }}
+                  </p>
+                </div>
+                {{ with .button }}
+                <div
+                  class="rounded-3xl hover:bg-style hover:after:p-0 group after:rounded-3xl transition-all border-gradient-primary py-3 hover:scale-105 sm:max-w-44 text-center">
+                  <a href="{{ .url | relURL }}"
+                    class="text-black dark:text-white group-hover:text-black font-medium text-sm font-poppins relative z-10">
+                    <span class="flex justify-center items-center gap-2">
+                      {{ .label }}
+                      <img src='{{ "images/dev/right-arrow-dark.svg" | relURL  }}' alt=""
+                        class="dark:hidden group-hover:block">
+                      <img src='{{ "images/dev/right-arrow.svg" | relURL  }}' alt=""
+                        class="hidden dark:block group-hover:hidden">
+                    </span>
+                  </a>
+                </div>
+                {{ end }}
+              </li>
+              {{ end }}
+            </ul>
+          </div>
+          <style>
+            #searchBox:hover>.card::after {
+              opacity: 1;
+            }
+
+            #searchBox>.card::after {
+              border-radius: inherit;
+              content: "";
+              min-height: 100%;
+              left: 0px;
+              opacity: 0;
+              position: absolute;
+              top: 0px;
+              transition: opacity 500ms;
+              width: 100%;
+            }
+
+            #searchBox>.card::after {
+              background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y),
+                  rgba(35, 118, 221, 0.4),
+                  rgba(255, 207, 113, 0.4),
+                  transparent 40%);
+              z-index: 1;
+            }
+
+            #searchBox>.card>.card-content {
+              border-radius: inherit;
+              display: flex;
+              flex-direction: column;
+              flex-grow: 1;
+              inset: 1px;
+              position: absolute;
+              z-index: 20;
+            }
+          </style>
+          <div id="searchBox" class="relative rounded-3xl border-gradient-primary gradient-border-5 gradient-border-dimmer after:rounded-3xl mt-5 lg:mt-0">
+            <div
+            class="rounded-3xl card relative left-0 h-[35rem] sm:h-[448px] mx-auto w-[90vw] sm:w-[576px] lg:w-[27rem] xl:w-[576px]">
+            <div class="card-content inset-0 bg-blue">
+              {{ $bg_pattern := "images/dev/search-bg-pattern.png" | relURL }}
+              {{ $gradient := "images/dev/gradient.png" | relURL }}
+              <img src="{{ $gradient }}" alt="" class="absolute left-0 right-0 bottom-0 size-full rounded-3xl">
+              <img src="{{ $bg_pattern }}" alt="" class="absolute inset-0 size-full rounded-3xl">
+                <div class="relative z-10 p-1 lg:p-3 lg:mt-2.5 lg:max-w-lg mx-auto">
+
+
+                    <div
+                      class="flex flex-col gap-y-14 lg:gap-y-12 xl:gap-y-14 justify-center items-center">
+                      <div class="flex w-full justify-between">
+                        <button onclick="openTabMain(event, 'searchMain')"
+                          class="border-b border-slate-700 pb-3 text-white flex items-center gap-2 justify-center w-full active-tab tablinksmain">
+                          Search
+                        </button>
+                        <button onclick="openTabMain(event, 'automateMain')"
+                          class="border-b border-slate-700 pb-3 text-white flex items-center gap-2 justify-center w-full tablinksmain">
+                          Automate
+                        </button>
+                      </div>
+
+                      <div id="searchMain" class="tabcontentmain">
+                        <div class="flex justify-center items-center flex-col gap-y-3.5 text-center">
+                          <div class="mb-3 flex justify-center items-center w-[52.5px] h-[70px]">
+                            <img src='{{ "images/dev/search-tab.svg" | relURL }}' alt="" class="w-full object-contain">
+                          </div>
+                          <div
+                            class="my-3 bg-white dark:bg-main border border-slate-200 dark:border-slate-700 rounded-md cursor-text p-2 flex gap-2 items-center w-full text-black dark:text-white relative shadow-lg transition-colors">
+                            <div class="text-inherit">
+                              <label for="floatingSearchMain">
+                                {{ $search := "images/dev/search-icon.svg" | relURL }}
+                                <img src="{{ $search }}" alt="" class="size-full">
+                              </label>
+                            </div>
+                            <input type="text" id="floatingSearchMain"
+                              class="overflow-hidden border-0 bg-transparent grow text-black dark:text-white focus:outline-none main-search relative z-10 font-sans text-base placeholder:text-slate-400 dark:placeholder:text-slate-500"
+                              placeholder="Search CVE, keyword, or software...">
+                            <div class="result-container p-3 space-y-2 absolute rounded-lg top-10 left-0 min-w-full bg-white dark:bg-blue border border-slate-200 dark:border-slate-700 shadow-lg hidden font-sans text-black dark:text-white">
+                              <!-- Results will be injected here -->
+                            </div>
+                          </div>
+                          <strong class="text-white text-xl">Instantly search our enriched vulnerability
+                            database.</strong>
+                          <p class="text-sm text-slate-200">Find any CVE or keyword in
+                            real-time—no noise, just
+                            results that matter.</p>
+                        </div>
+                      </div>
+
+                      <div id="automateMain" class="tabcontentmain hidden">
+                        <div class="flex justify-center items-center flex-col gap-y-2 text-center">
+                          <div class="mb-3 flex justify-center items-center w-[61.25px] h-[70px]">
+                            <img src='{{ "images/dev/automate-tab.svg" | relURL }}' alt="" class="size-full object-contain">
+                          </div>
+                          <strong class="text-white text-xl">Need to integrate prioritization into your
+                            workflows?</strong>
+                          <p class="text-sm text-slate-200">Use our powerful API or CLI to
+                            automate
+                            vulnerability triage at scale.</p>
+                          <p class="text-sm text-slate-200">Build your own decision tree logic
+                            into any security
+                            tool.</p>
+                          <a href='{{ "docs/api/" | relURL }}'
+                            class="my-2 rounded-3xl font-medium text-slate-950 px-5 py-3 hover:scale-105 transition-all font-poppins bg-style flex justify-center items-center gap-2">
+                            <p class="text-inherit font-poppins text-sm">View API & CLI Docs</p>
+                            <div class="size-3">
+                              {{ $right_arrow := "images/dev/right-arrow-dark.svg" | relURL }}
+                              <img src="{{ $right_arrow }}" alt="" class="size-full">
+                            </div>
+                          </a>
+                        </div>
+                      </div>
+
+                      <script>
+                        function openTabMain(evt, tabName) {
+                          // Declare all variables
+                          let i, tabcontent, tablinks;
+                    
+                          // Get all elements with class="tabcontent" and hide them
+                          tabcontent = document.getElementsByClassName("tabcontentmain");
+                          for (i = 0; i < tabcontent.length; i++) {
+                            tabcontent[i].classList.add('hidden');
+                          }
+                    
+                          // Get all elements with class="tablinks" and remove the class "active"
+                          tablinks = document.getElementsByClassName("tablinksmain");
+                          for (i = 0; i < tablinks.length; i++) {
+                            tablinks[i].className = tablinks[i].className.replace(" active-tab", "");
+                          }
+                    
+                          // Show the current tab, and add an "active" class to the button that opened the tab
+                          document.getElementById(tabName).classList.remove('hidden');
+                          evt.currentTarget.className += " active-tab";
+                        }
+                    
+                      </script>
+
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <script>
+            // onmouse offect 
+            document.getElementById("searchBox").onmousemove = e => {
+              for (const card of document.getElementsByClassName("card")) {
+                const rect = card.getBoundingClientRect(),
+                  x = e.clientX - rect.left,
+                  y = e.clientY - rect.top;
+
+                card.style.setProperty("--mouse-x", `${x}px`);
+                card.style.setProperty("--mouse-y", `${y}px`);
+              };
+            };
+          </script>
+        </div>
+      </div>
+    </div>
+    {{ with .mission }}
+    <div class="bg-gradient-to-b from-transparent to-slate-100 dark:to-main relative z-10">
+      <div
+        class="flex container mx-auto px-5 sm:px-10 lg:px-16 flex-col lg:flex-row justify-between items-center gap-5 lg:gap-0 py-10 sm:py-20">
+        <h3 class="font-poppins font-bold text-3xl lg:text-[45px] text-black dark:text-white leading-[57.6px] lg:w-1/2">
+          {{ .title | safeHTML }}
+        </h3>
+        {{ with .details }}
+        <div class="mx-[60px]">
+          <span class="hidden lg:inline-block px-[1px] rotate-12 bg-slate-800 dark:bg-style h-[111.4px]"></span>
+        </div>
+        {{ end }}
+        <p class="text-slate-700 dark:text-slate-400 font-poppins text-lg leading-[36px] lg:w-3/4">
+          {{ .details | safeHTML }}
+        </p>
+      </div>
+    </div>
+    {{ end }}
+  </div>
+</section>
+{{ end }}
+{{ end }}
+{{/* end hero */}}
+
+{{/* news section */}}
+{{ with .Params.news_section }}
+{{ if .enable }}
+<section class="w-full h-full bg-slate-100 dark:bg-main">
+  <div class="container mx-auto px-5 sm:px-10 lg:px-16 pb-10 sm:pb-20 lg:py-20">
+    <div class="swiper mySwiper relative">
+      <div class="md:flex md:justify-between">
+        <h3 class="font-poppins font-semibold text-3xl lg:text-[46px] text-black dark:text-slate-200 main-heading mt-0.5">
+          Latest Vulnerabilities
+        </h3>
+        <div class="hidden md:flex gap-3 relative z-20">
+          <div
+            class="group p-4 border-gradient-primary rounded-full after:rounded-full hover:bg-style hover:after:p-0 cursor-pointer transition-colors swiper-button-prev">
+            <img src='{{ "images/dev/prev-icon-dark.svg"  | relURL }}' alt="{{ site.Title }}"
+              class="hidden dark:block group-hover:dark:hidden" />
+            <img src='{{ "images/dev/prev-icon.svg"  | relURL }}' alt="{{ site.Title }}"
+              class="dark:hidden group-hover:dark:block" />
+          </div>
+          <div
+            class="group p-4 border-gradient-primary rounded-full after:rounded-full hover:bg-style hover:after:p-0 cursor-pointer transition-colors swiper-button-next">
+            <img src='{{ "images/dev/next-icon-dark.svg"  | relURL }}' alt="{{ site.Title }}"
+              class="hidden dark:block group-hover:dark:hidden" />
+            <img src='{{ "images/dev/next-icon.svg"  | relURL }}' alt="{{ site.Title }}"
+              class="dark:hidden group-hover:dark:block" />
+          </div>
+        </div>
+      </div>
+      <style>
+        #vulnerabilitiesCards:hover>.card::after {
+          opacity: 1;
+        }
+
+        #vulnerabilitiesCards>.card:hover::before {
+          opacity: 1;
+        }
+
+        #vulnerabilitiesCards>.card::before,
+        #vulnerabilitiesCards>.card::after {
+          border-radius: inherit;
+          content: "";
+          min-height: 100%;
+          left: 0px;
+          opacity: 0;
+          position: absolute;
+          top: 0px;
+          transition: opacity 500ms;
+          width: 100%;
+        }
+
+        #valueCards>.card::before {
+          background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y),
+              rgba(255, 255, 255, 0.06),
+              transparent 20%);
+          z-index: 3;
+        }
+
+        #vulnerabilitiesCards>.card::after {
+          background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y),
+              rgba(35, 118, 221, 0.4),
+              rgba(255, 207, 113, 0.4),
+              transparent 40%);
+          z-index: 1;
+        }
+
+        #vulnerabilitiesCards>.card>.card-content {
+          border-radius: inherit;
+          display: flex;
+          flex-direction: column;
+          flex-grow: 1;
+          inset: 1px;
+          padding: 10px;
+          position: absolute;
+          z-index: 2;
+        }
+      </style>
+      <div id="vulnerabilitiesCards" class="cards mb-5 mt-[30px] swiper-wrapper"></div>
+      <script>
+        function getApiBaseUrl() {
+          return document.querySelector('meta[name="api-base-url"]')?.content || 'https://api.vulnerawise.ai';
+        }
+        async function loadTrendingVulnerabilities() {
+          const container = document.getElementById("vulnerabilitiesCards");
+          container.innerHTML = '<div class="text-center w-full py-10 text-slate-500">Loading trending vulnerabilities...</div>';
+          try {
+            const apiBase = getApiBaseUrl();
+            const response = await fetch(`${apiBase}/v1/trending`);
+            if (!response.ok) throw new Error("API error: " + response.status);
+            const data = await response.json();
+            if (!data.data || !Array.isArray(data.data) || data.data.length === 0) {
+              container.innerHTML = '<div class="text-center w-full py-10 text-slate-500">No trending vulnerabilities found.</div>';
+              return;
+            }
+            const html = data.data.slice(0, 10).map(vul => {
+              const cve = vul.cve;
+              return `
+                <div id="${cve.id}" class="divAnchor rounded-3xl swiper-slide min-h-[22rem] lg:max-w-[410px] relative overflow-hidden card cursor-pointer">
+                  <div class="bg-white dark:bg-blue card-content overflow-auto z-20">
+                    <div class="px-[40.59px] py-[40px]">
+                      <div class="mb-[31px] relative z-10">
+                        <div class="mb-6">
+                          <h4 class="text-black dark:text-off-white font-poppins font-semibold text-2xl leading-[160%]">
+                            ${cve.id}
+                          </h4>
+                          <p class="text-slate-600 dark:text-slate-500 font-poppins text-lg leading-[160%]">
+                            ${cve.name || cve.description || ''}
+                          </p>
+                        </div>
+                        <div>
+                          <p class="font-poppins text-slate-900 dark:text-style uppercase leading-[160%]">DETAILS</p>
+                          <ul class="list-disc leading-[160%] font-poppins text-[15px] text-black dark:text-off-white">
+                            <li class="flex flex-wrap justify-between">
+                              <p>Exploit Maturity</p>
+                              <div class="capitalize">${cve.impact?.exploit_maturity || ''}</div>
+                            </li>
+                            <li class="flex flex-wrap justify-between">
+                              <p>Confidence</p>
+                              <div class="capitalize">${cve.metadata?.confidence_level || ''}</div>
+                            </li>
+                            <li class="flex flex-wrap justify-between">
+                              <p>Trending</p>
+                              <div class="capitalize">${cve.metadata?.trending_score || ''}</div>
+                            </li>
+                            <li class="flex flex-wrap justify-between">
+                              <p>EPSS score</p>
+                              <div class="capitalize">${cve.epss?.score || ''}</div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="flex flex-wrap gap-y-2 justify-between relative z-10">
+                        <p class="text-slate-700 dark:text-white font-poppins">
+                          ${cve.metadata?.published_date ? new Date(cve.metadata.published_date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : ''}
+                        </p>
+                        ${cve.metadata?.severity === 'Medium' ? `<div class="border border-style px-2 text-style rounded-full font-poppins">Medium</div>` : ''}
+                        ${cve.metadata?.severity === 'High' ? `<div class="border border-warning px-2 text-warning rounded-full font-poppins">High</div>` : ''}
+                        ${cve.metadata?.severity === 'Critical' ? `<div class="border border-danger px-2 text-danger rounded-full font-poppins">Critical</div>` : ''}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              `;
+            }).join("");
+            container.innerHTML = html;
+          } catch (e) {
+            container.innerHTML = '<div class="text-center w-full py-10 text-red-500">Failed to load trending vulnerabilities.</div>';
+          }
+        }
+        document.addEventListener("DOMContentLoaded", loadTrendingVulnerabilities);
+      </script>
+      <div class="mt-10 md:hidden">
+        <div class="swiper-pagination"></div>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}
+{{ end }}
+{{/* end news */}}
+
+{{/* services section */}}
+{{ with .Params.services_section }}
+{{ if .enable }}
+<section class="w-full h-full bg-slate-100 dark:bg-main">
+  <div class="container mx-auto px-5 sm:px-10 lg:px-16 pb-10 sm:pb-20 lg:py-20">
+    <div class="flex flex-col gap-y-7 sm:gap-y-12 lg:gap-y-24">
+      {{ range $i, $p := .cards }}
+      <div class="rounded-3xl shadow-lg bg-white dark:bg-blue overflow-hidden">
+        <div
+          class="flex flex-col {{ if not (modBool $i 2) }}lg:flex-row-reverse{{ else }}lg:flex-row{{ end }} gap-5 lg:gap-0 justify-between relative">
+          <img src='{{ "images/dev/services-circles.png"  | relURL }}' alt=""
+            class="size-full absolute top-0 bottom-0 left-0 {{ if not (modBool $i 2) }}transform scale-x-[-1]{{ end }}" />
+          {{ if not (modBool $i 2) }}
+          <div class="lg:w-1/2 relative z-20 mx-[34px] lg:mx-0 lg:mr-[34px] my-[64px] flex flex-col gap-5">
+            <h3 class="font-poppins font-bold text-3xl lg:text-[42px] text-black dark:text-white main-heading leading-[57.6px]">
+              {{ $p.title | safeHTML }}
+            </h3>
+            <p class="font-poppins text-lg lg:text-xl text-slate-700 dark:text-slate-400 leading-[160%]">
+              {{ $p.details | safeHTML }}
+            </p>
+          </div>
+          {{ else }}
+          <div class="lg:w-1/2 relative z-20 mx-[34px] lg:mx-0 lg:ml-[34px] my-[64px] flex flex-col gap-5">
+            <h3 class="font-poppins font-bold text-3xl lg:text-[42px] text-black dark:text-white main-heading leading-[57.6px]">
+              {{ $p.title | safeHTML }}
+            </h3>
+            <p class="font-poppins text-lg lg:text-xl text-slate-700 dark:text-slate-400 leading-[160%]">
+              {{ $p.details | safeHTML }}
+            </p>
+          </div>
+          {{ end }}
+          <div class="lg:w-1/2 relative">
+            <div class="w-full relative z-10 lg:hidden">
+              <div
+                class="absolute inset-0 -top-8 {{ if not (modBool $i 2) }}-left-24{{ else }}-right-24{{ end }} bg-white dark:bg-blue blur-lg h-[70px]">
+              </div>
+            </div>
+            <div
+              class="hidden lg:block absolute w-[100px] h-[150%] -top-10 bottom-0 bg-white dark:bg-blue blur-lg z-10 {{ if not (modBool $i 2) }}-right-10{{ else }}-left-10{{ end }}">
+            </div>
+            <img src='{{ $p.image  | relURL }}' alt="{{ $.Site.Title}} {{ .title | safeHTML }}"
+              class="filter grayscale brightness-105 contrast-150 relative top-0 sm:h-60 sm:w-full object-cover lg:h-full {{ if not (modBool $i 2) }}object-left{{ else }}object-right{{ end }}" />
+
+            <img src='{{ "images/dev/home_box_layer.png"  | relURL }}' alt=""
+              class="w-full h-full right-0 bottom-0 absolute {{ if not (modBool $i 2) }}transform scale-x-[-1]{{ end }}" />
+          </div>
+        </div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}
+{{ end }}
+{{/* end services */}} {{/* blog section */}}
+{{ with .Params.blog_section }}
+{{ if .enable }}
+<section class="hidden lg:block w-full h-full bg-slate-100 dark:bg-main">
+  <div class="container mx-auto px-5 sm:px-10 lg:px-16 sm:pb-32 lg:pt-20">
+    <div class="flex flex-wrap gap-y-4 gap-2 justify-between">
+      <h3 class="font-poppins font-semibold text-3xl lg:text-5xl text-black dark:text-slate-200">
+        Our Blog
+      </h3>
+      {{ with .button }}
+      <div
+        class="rounded-3xl flex justify-center items-center hover:bg-style group hover:text-black hover:after:p-0 after:rounded-3xl px-9 py-1 hover:scale-105 transition-all border-gradient-primary">
+        <a href="{{ .url | relURL }}"
+          class="text-black dark:text-white font-medium group-hover:text-black text-sm font-poppins relative z-10">{{
+          .label }}</a>
+      </div>
+      {{ end }}
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-5">
+      {{ range .cards }}
+      <a href="" class="space-y-5">
+        {{/* <img src='{{ .image | relURL }}' alt="{{ site.Title }} {{ .Page.Title }}"
+          class="rounded-t-xl object-cover" /> */}}
+        <div style="background-image: url('{{ .image | relURL }}');"
+          class="bg-no-repeat bg-cover rounded-xl h-48 w-full"></div>
+        <div>
+          <span class="px-3 font-medium py-1 bg-style text-slate-950 rounded-lg font-poppins">{{ .label }}</span>
+        </div>
+        <h3 class="font-poppins font-semibold text-2xl text-black dark:text-white">
+          {{ .title | safeHTML | truncate 55 }}
+        </h3>
+        <p class="font-poppins text-[16px] text-slate-700 dark:text-gray-400">
+          {{ .details | safeHTML | truncate 140 }}
+        </p>
+      </a>
+      {{ end }}
+    </div>
+  </div>
+</section>
+<section class="lg:hidden w-full h-full bg-slate-100 dark:bg-main">
+  <div class="container mx-auto sm:pb-32 lg:px-16 lg:pt-20">
+
+    <div class="swiper blogSwiper">
+      <div class="swiper-wrapper mt-5">
+        {{ range .cards }}
+        <a href="" class="swiper-slide space-y-5 px-5 sm:px-10 lg:px-0">
+          {{/* <img src='{{ .image | relURL }}' alt="{{ site.Title }} {{ .Page.Title }}"
+            class="rounded-t-xl object-cover" /> */}}
+          <div style="background-image: url('{{ .image | relURL }}');"
+            class="bg-no-repeat bg-cover rounded-xl h-48 w-full"></div>
+          <div>
+            <span class="px-3 font-medium py-1 bg-style text-slate-950 rounded-lg font-poppins">{{ .label }}</span>
+          </div>
+          <h3 class="font-poppins font-semibold text-2xl text-black dark:text-white">
+            {{ .title | safeHTML | truncate 55 }}
+          </h3>
+          <p class="font-poppins text-[16px] text-slate-700 dark:text-gray-400">
+            {{ .details | safeHTML | truncate 140 }}
+          </p>
+        </a>
+        {{ end }}
+      </div>
+      <div class="mt-10 lg:hidden">
+        <div class="swiper-pagination"></div>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}
+{{ end }}
+{{/* end blog */}}
+{{/* faqs section */}}
+{{ with .Params.faq_section }}
+{{ if .enable }}
+<section class="bg-slate-100 dark:bg-main relative z-30">
+  <div class="container mx-auto px-5 sm:px-10 lg:px-16 lg:pt-20">
+    <h3 class="font-poppins font-semibold text-3xl lg:text-[46px] text-black dark:text-slate-200 main-heading">
+      Frequently Asked Questions
+    </h3>
+    <ul class="basis-1/2 mt-[30px] grid grid-cols-1 lg:grid-cols-2 gap-8">
+      {{ range $index, $faq := .faqs }}
+      <li>
+        <div class="p-5 bg-gray-200 dark:bg-blue rounded-lg" data-faq-id="faq-{{ $index }}">
+          <button
+            class="faq-toggle relative flex gap-2 items-start w-full text-base font-poppins text-left md:text-lg text-slate-700 dark:text-slate-400 aria-expanded:text-black dark:aria-expanded:text-white"
+            aria-expanded="false" onclick="toggleFAQ(this, 'faq-{{ $index }}')">
+            <span class="flex-1">{{ $faq.question | safeHTML }}</span>
+            <svg class="faq-icon flex-shrink-0 mt-2 size-4 ml-auto fill-current transition-transform duration-300"
+              viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+              <rect y="7" width="16" height="2" rx="1"
+                class="transform origin-center transition duration-200 ease-out"></rect>
+              <rect y="7" width="16" height="2" rx="1"
+                class="transform origin-center rotate-90 transition duration-200 ease-out"></rect>
+            </svg>
+          </button>
+          <div class="faq-content transition-all duration-300 ease-in-out max-h-0 overflow-hidden"
+            style="transition: max-height 0.3s ease-in-out 0s;">
+            <div class="pt-5 leading-relaxed">
+              <div class="space-y-2 leading-relaxed font-poppins text-slate-700 dark:text-slate-400">
+                {{ $faq.answer | safeHTML }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+      {{ end }}
+    </ul>
+  </div>
+
+  <script>
+    function toggleFAQ(clickedButton, id) {
+      const faqItems = document.querySelectorAll('[data-faq-id]');
+      let shouldExpandTarget = true;
+  
+      // First pass: determine if the clicked one is already expanded
+      faqItems.forEach(item => {
+        if (item.dataset.faqId === id) {
+          const btn = item.querySelector('.faq-toggle');
+          shouldExpandTarget = btn.getAttribute("aria-expanded") !== "true";
+        }
+      });
+  
+      // Second pass: collapse all, then optionally expand clicked one
+      faqItems.forEach(item => {
+        const btn = item.querySelector('.faq-toggle');
+        const content = item.querySelector('.faq-content');
+        const icon = item.querySelector('.faq-icon');
+  
+        const isTarget = item.dataset.faqId === id;
+  
+        if (btn && content && icon) {
+          btn.setAttribute("aria-expanded", "false");
+          content.style.maxHeight = "0";
+          icon.classList.remove("rotate-45");
+  
+          // Expand only the target item if needed
+          if (isTarget && shouldExpandTarget) {
+            btn.setAttribute("aria-expanded", "true");
+            content.style.maxHeight = content.scrollHeight + "px";
+            icon.classList.add("rotate-45");
+          }
+        }
+      });
+    }
+  </script>  
+</section>
+{{ end }}
+{{ end }}
+{{/* end faqs */}}
+<div class="sm:-mt-10 lg:-mt-14 bg-slate-100 dark:bg-main overflow-x-hidden">
+  <img src='{{ "images/dev/bottom_layer.png" | relURL }}' alt="" class="container mx-auto w-full animated-img" />
+</div>
+{{ end }}

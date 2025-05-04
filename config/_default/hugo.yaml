@@ -1,0 +1,15 @@
+title: "VulneraWise" # Website name
+baseURL: "https://vulnerawise.com/" # Website URL
+
+############################
+## ADVANCED
+############################
+
+build:
+  writeStats: true
+
+markup:
+  highlight:
+    style: rrt
+    noClasses: false
+    lineNos: true

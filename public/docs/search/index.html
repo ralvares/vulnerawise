@@ -1,0 +1,1704 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=3000&amp;path=livereload" data-no-instant defer></script>
+    
+<div id="cookieBox" style="display:none" class="fixed max-w-96 z-50 bg-main border-slate-700 dark:bg-slate-100 dark:border-slate-200 rounded-lg shadow-sm border px-5 py-3 right-5 bottom-5 transition-all duration-500 focus:outline-none" aria-live="polite">
+  <div class="space-y-4">
+    <h3 class="text-white dark:text-black font-poppins text-xl font-semibold">We use cookies</h3>
+    <p class="text-slate-300 dark:text-slate-700 font-poppins text-sm">
+      This website uses essential cookies to ensure its proper operation and, with your consent, may use additional cookies to understand how you interact with it. <a class="underline underline-offset-4" href='/policies/'>Learn more</a>.
+    </p>
+    <div class="flex gap-3 flex-wrap items-center pt-2 justify-between">
+      <button id="acceptCookies" class="acceptCookies px-5 py-1 bg-style rounded-full hover:scale-105 transition-transform text-black font-poppins">Accept</button>
+      <button id="settingsCookies" class="px-5 py-1 border-gradient-primary font-poppins after:rounded-full rounded-full hover:after:p-0 hover:bg-style hover:text-black hover:scale-105 transition-transform text-white dark:text-black">Settings</button>
+    </div>
+  </div>
+</div>
+
+<div id="cookieSettingsModal" style="display:none" class="fixed max-w-lg z-50 bg-main border-slate-700 dark:bg-slate-100 dark:border-slate-200 rounded-lg shadow-sm border px-5 py-6 right-1/2 bottom-1/2 translate-x-1/2 translate-y-1/2 transition-all duration-500 focus:outline-none" aria-modal="true" role="dialog" tabindex="-1">
+  <div class="space-y-4">
+    <h3 class="text-white dark:text-black font-poppins text-xl font-semibold">Cookie Preferences</h3>
+    <div class="space-y-3">
+      <div class="flex justify-between items-center">
+        <span class="font-poppins text-slate-700 dark:text-slate-300">Essential cookies</span>
+        <span class="text-xs text-slate-400">Always enabled</span>
+      </div>
+      <div class="flex justify-between items-center">
+        <span class="font-poppins text-slate-700 dark:text-slate-300">Statistics cookies</span>
+        <span class="text-xs text-slate-400">Always enabled</span>
+      </div>
+      <div class="flex justify-between items-center">
+        <span class="font-poppins text-slate-700 dark:text-slate-300">Preferences cookies</span>
+        <label class="inline-flex relative items-center cursor-pointer">
+          <input type="checkbox" id="preferences" class="sr-only peer">
+          <div class="w-11 h-6 bg-slate-800 dark:bg-slate-200 peer-focus:outline-none rounded-full peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white dark:after:bg-black peer-checked:after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-lightBlue-600"></div>
+        </label>
+      </div>
+    </div>
+    <div class="flex gap-3 flex-wrap items-center pt-2 justify-end">
+      <button id="saveSettings" class="px-5 py-1 bg-style rounded-full hover:scale-105 transition-transform text-black font-poppins">Save</button>
+      <button id="closeSettings" class="px-5 py-1 border border-slate-400 rounded-full text-slate-600 dark:text-slate-800 font-poppins">Cancel</button>
+    </div>
+  </div>
+</div>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const cookieBox = document.getElementById("cookieBox");
+    const settingsModal = document.getElementById("cookieSettingsModal");
+    const acceptBtn = document.getElementById("acceptCookies");
+    const settingsBtn = document.getElementById("settingsCookies");
+    const saveSettingsBtn = document.getElementById("saveSettings");
+    const closeSettingsBtn = document.getElementById("closeSettings");
+    const preferencesCheckbox = document.getElementById("preferences");
+
+    
+    if (!localStorage.getItem("cookieConsent")) {
+      setTimeout(() => { cookieBox.style.display = 'block'; }, 300);
+    }
+    
+    if (acceptBtn) {
+      acceptBtn.addEventListener("click", () => {
+        localStorage.setItem("cookieConsent", "true");
+        localStorage.setItem("preferencesAccepted", "true");
+        cookieBox.style.display = 'none';
+      });
+    }
+    
+    if (settingsBtn) {
+      settingsBtn.addEventListener("click", () => {
+        cookieBox.style.display = 'none';
+        settingsModal.style.display = 'block';
+        
+        preferencesCheckbox.checked = localStorage.getItem("preferencesAccepted") === "true";
+      });
+    }
+    
+    if (saveSettingsBtn) {
+      saveSettingsBtn.addEventListener("click", () => {
+        localStorage.setItem("cookieConsent", "true");
+        localStorage.setItem("preferencesAccepted", preferencesCheckbox.checked ? "true" : "false");
+        settingsModal.style.display = 'none';
+      });
+    }
+    
+    if (closeSettingsBtn) {
+      closeSettingsBtn.addEventListener("click", () => {
+        settingsModal.style.display = 'none';
+        
+        if (!localStorage.getItem("cookieConsent")) {
+          cookieBox.style.display = 'block';
+        }
+      });
+    }
+  });
+</script>
+    <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+
+
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="shortcut icon" type="image/png" href="/favicon.png">
+
+
+ 
+<script src="/plugins/aos/aos.min.js"></script>
+
+<title>
+  Vulnerawise Search Syntax Guide - My Site
+</title>
+
+<meta name="site-base-url" content="http://localhost:3000/">
+
+
+
+<script src="/plugins/fuse/fuse.min.min.js"></script>
+
+
+  
+<meta property="og:url" content="http://localhost:3000/docs/search/">
+  <meta property="og:site_name" content="My Site">
+  <meta property="og:title" content="Vulnerawise Search Syntax Guide">
+  <meta property="og:description" content="This guide explains the various search options available in the Vulnerawise CLI tool. The search command provides powerful filtering capabilities to help you find specific CVEs based on various criteria.
+Basic Search Syntax The basic format for search commands is:
+1 vulnerawise search [flags] You must specify at least one filter to perform a search.
+Search by CVE ID Search for specific CVE IDs using the --cve flag:
+1 2 3 4 5 # Search for a single CVE vulnerawise search --cve CVE-2023-1234 # Search for multiple CVEs (comma-separated) vulnerawise search --cve CVE-2023-1234,CVE-2023-5678 Search by Description The --description flag uses SQLite’s powerful Full-Text Search (FTS5) engine, allowing for advanced text search capabilities.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="docs">
+    <meta property="og:image" content="http://localhost:3000/site-feature-image.jpg">
+        <meta property="fb:admins" content="barrybower">
+ 
+
+  <meta itemprop="name" content="Vulnerawise Search Syntax Guide">
+  <meta itemprop="description" content="This guide explains the various search options available in the Vulnerawise CLI tool. The search command provides powerful filtering capabilities to help you find specific CVEs based on various criteria.
+Basic Search Syntax The basic format for search commands is:
+1 vulnerawise search [flags] You must specify at least one filter to perform a search.
+Search by CVE ID Search for specific CVE IDs using the --cve flag:
+1 2 3 4 5 # Search for a single CVE vulnerawise search --cve CVE-2023-1234 # Search for multiple CVEs (comma-separated) vulnerawise search --cve CVE-2023-1234,CVE-2023-5678 Search by Description The --description flag uses SQLite’s powerful Full-Text Search (FTS5) engine, allowing for advanced text search capabilities.">
+  <meta itemprop="wordCount" content="1052">
+  <meta itemprop="image" content="http://localhost:3000/site-feature-image.jpg"> 
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:3000/site-feature-image.jpg">
+  <meta name="twitter:title" content="Vulnerawise Search Syntax Guide">
+  <meta name="twitter:description" content="This guide explains the various search options available in the Vulnerawise CLI tool. The search command provides powerful filtering capabilities to help you find specific CVEs based on various criteria.
+Basic Search Syntax The basic format for search commands is:
+1 vulnerawise search [flags] You must specify at least one filter to perform a search.
+Search by CVE ID Search for specific CVE IDs using the --cve flag:
+1 2 3 4 5 # Search for a single CVE vulnerawise search --cve CVE-2023-1234 # Search for multiple CVEs (comma-separated) vulnerawise search --cve CVE-2023-1234,CVE-2023-5678 Search by Description The --description flag uses SQLite’s powerful Full-Text Search (FTS5) engine, allowing for advanced text search capabilities.">
+      <meta name="twitter:site" content="@barrybower">
+ 
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const themeToggleElm = document.querySelector('.change-theme');
+    const preferencesCheckbox = document.getElementById('preferences');
+  
+    
+    function applyTheme() {
+      const consentGiven = localStorage.getItem('preferencesAccepted') === 'true';
+      let theme = null;
+  
+      if (consentGiven) {
+        theme = localStorage.getItem('theme');
+      } else {
+        theme = sessionStorage.getItem('theme');
+      }
+  
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else if (theme === 'light') {
+        document.documentElement.classList.remove('dark');
+      } else {
+        
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      }
+    }
+  
+    applyTheme(); 
+  
+    
+    function changeTheme() {
+      const currentTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      setTheme(newTheme);
+    }
+  
+    
+    function setTheme(theme) {
+      const consentGiven = localStorage.getItem('preferencesAccepted') === 'true';
+  
+      if (consentGiven) {
+        localStorage.setItem('theme', theme);
+      } else {
+        sessionStorage.setItem('theme', theme);
+      }
+  
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    }
+  
+    
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
+  
+    
+    preferencesCheckbox.addEventListener('change', () => {
+      if (preferencesCheckbox.checked) {
+        localStorage.setItem('preferencesAccepted', 'true');
+        const sessionTheme = sessionStorage.getItem('theme');
+        if (sessionTheme) {
+          localStorage.setItem('theme', sessionTheme);
+          sessionStorage.removeItem('theme');
+        }
+      } else {
+        localStorage.removeItem('preferencesAccepted');
+        localStorage.removeItem('theme');
+      }
+  
+      applyTheme();
+    });
+  
+    
+    if (themeToggleElm) {
+      themeToggleElm.addEventListener('click', changeTheme);
+    }
+  });  
+</script>
+
+
+
+
+
+
+<style>
+  .after-right-arrow::after {
+    content: url('/images/dev/dark_right_arrow.png');
+  }
+
+  .after-right-arrow-transparent::after {
+    content: url('/images/dev/dark_right_arrow.png');
+  }
+  
+  .after-right-arrow-transparent-dark:where(.dark, .dark *)::after {
+    content: url('/images/dev/light_right_arrow.png');
+  }
+
+  .cards:hover > .card::after {
+    opacity: 1;
+  }
+  
+  .card:hover::before {
+    opacity: 1;
+  }
+  
+  .card::before,
+  .card::after {
+    border-radius: inherit;
+    content: "";
+    min-height: inherit;
+    left: 0px;
+    opacity: 0;
+    position: absolute;
+    top: 0px;
+    transition: opacity 500ms;
+    width: inherit;
+  }
+  
+  .card::before {
+    background: radial-gradient(
+      800px circle at var(--mouse-x) var(--mouse-y),
+      rgba(255, 255, 255, 0.06),
+      transparent 20%
+    );
+    z-index: 3;
+  }
+  
+  .card::after {
+    background: radial-gradient(
+      600px circle at var(--mouse-x) var(--mouse-y),
+      rgba(35, 118, 221, 0.4),
+      rgba(255, 207, 113, 0.4),
+      transparent 40%
+    );
+    z-index: 1;
+  }
+  
+  .card > .card-content {
+    border-radius: inherit;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    inset: 1px;
+    padding: 10px;
+    position: absolute;
+    z-index: 2;
+  }  
+</style>
+
+     
+<link href="/css/index.dev.1746369702447.css" rel="stylesheet" />
+
+
+     
+
+<link rel="stylesheet" href="/css/plugins.min.css" />
+
+  </head>
+  <body data-scroll="true" class="data-[scroll=false]:overflow-hidden">
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all">
+  <nav class="px-2 py-3 lg:py-5 container mx-auto lg:px-0">
+    <div class="flex flex-wrap lg:flex-nowrap justify-between items-center">
+      <a href="http://localhost:3000/" class="flex items-center">
+        <img src='/images/black_logo.png' class="mr-3 h-6 sm:h-9 dark:hidden"
+          alt="My Site Logo" />
+        <img src='/images/white_logo.png' class="mr-3 h-6 sm:h-9 hidden dark:block"
+          alt="My Site Logo" />
+      </a>
+      <div class="flex items-center lg:order-2 gap-x-1 lg:gap-x-0">
+        <button class="p-2 lg:p-3 lg:mr-2 cursor-pointer change-theme border-gradient-primary after:rounded-full">
+          <div class="hidden dark:block text-slate-200 size-5">
+            <img src='/images/dev/white-sun-icon.png' alt="" class="size-full object-contain">
+          </div>
+          <div class="dark:hidden size-5">
+            <svg fill="currentColor" class="size-full object-contain" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M144.7 98.7c-21 34.1-33.1 74.3-33.1 117.3c0 98 62.8 181.4 150.4 211.7c-12.4 2.8-25.3 4.3-38.6 4.3C126.6 432 48 353.3 48 256c0-68.9 39.4-128.4 96.8-157.3zm62.1-66C91.1 41.2 0 137.9 0 256C0 379.7 100 480 223.5 480c47.8 0 92-15 128.4-40.6c1.9-1.3 3.7-2.7 5.5-4c4.8-3.6 9.4-7.4 13.9-11.4c2.7-2.4 5.3-4.8 7.9-7.3c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-3.7 .6-7.4 1.2-11.1 1.6c-5 .5-10.1 .9-15.3 1c-1.2 0-2.5 0-3.7 0l-.3 0c-96.8-.2-175.2-78.9-175.2-176c0-54.8 24.9-103.7 64.1-136c1-.9 2.1-1.7 3.2-2.6c4-3.2 8.2-6.2 12.5-9c3.1-2 6.3-4 9.6-5.8c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-3.6-.3-7.1-.5-10.7-.6c-2.7-.1-5.5-.1-8.2-.1c-3.3 0-6.5 .1-9.8 .2c-2.3 .1-4.6 .2-6.9 .4z"/></svg>
+          </div>
+        </button>
+        <button
+          class="openSearch rounded-full after:rounded-full xl:flex text-black dark:text-white xl:rounded-3xl xl:after:rounded-3xl font-medium text-sm p-2 lg:p-3 xl:px-5 xl:py-3 xl:hover:scale-105 transition-all lg:mr-2 border-gradient-primary font-poppins gap-2 justify-center items-center cursor-pointer xl:cursor-text">
+          <div class="size-5 text-inherit">
+            <svg class="size-full object-contain fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+              <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/>
+            </svg>
+          </div>
+          <span class="hidden xl:inline">
+            Search
+          </span>
+        </button>
+        <a href='/login'
+          class="js-login hidden lg:block text-black dark:text-white hover:bg-style hover:text-black hover:after:p-0 rounded-3xl after:rounded-3xl font-medium text-sm px-5 py-3 hover:scale-105 transition-all mr-2 border-gradient-primary font-poppins">
+          Sign In
+        </a>
+
+        
+        <a href='/signup'
+          class="js-signup hidden lg:block rounded-3xl font-medium text-sm px-5 py-3 hover:scale-105 transition-all font-poppins bg-style">
+          Sign up
+        </a>
+
+        
+        <button
+          class="js-logout hidden text-black dark:text-white hover:bg-style hover:text-black hover:after:p-0 rounded-3xl after:rounded-3xl font-medium text-sm px-5 py-3 hover:scale-105 transition-all mr-2 border-gradient-primary font-poppins">
+          Logout
+        </button>
+        <button data-collapse-toggle="mobile-menu-2" type="button"
+          class="inline-flex items-center p-2 text-sm text-black dark:text-white rounded-lg lg:hidden focus:outline-none"
+          aria-controls="mobile-menu-2" aria-expanded="false">
+          <span class="sr-only">Open main menu</span>
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd"
+              d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+              clip-rule="evenodd"></path>
+          </svg>
+          <svg class="hidden w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd"
+              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+              clip-rule="evenodd"></path>
+          </svg>
+        </button>
+      </div>
+      <div class="hidden justify-center items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
+        <ul class="flex flex-col mt-4 lg:flex-row lg:mt-0 justify-center items-center lg:space-x-5">
+          
+          
+          
+          
+          
+
+          
+          <div class="relative inline-block text-left w-full px-4 lg:p-0">
+            <button
+            
+            
+              id="dropdown-button-0"
+              class="py-2 text-main font-normal dark:text-slate-100 hover:text-slate-950 dark:hover:text-white rounded lg:bg-transparent lg:text-primary-700 lg:p-0 font-poppins w-full flex gap-1 justify-between lg:justify-normal items-center text-start transition-transform duration-500 tracking-wider"
+              aria-haspopup="true" aria-expanded="false">
+              <a href="http://localhost:3000/solutions/">
+                Solutions
+              </a>
+              <div class="transition-all icon">
+                <img src="/images/dev/dropdown-arrow.svg" alt="" class="dark:hidden lg:min-w-[12px]">
+                <img src="/images/dev/dropdown-arrow-dark.svg" alt="" class="hidden dark:block lg:min-w-[12px]">  
+              </div>
+            </button>
+
+            <div id="dropdown-0"
+              class="relative origin-top lg:absolute mt-2 lg:group-hover:block lg:transition-transform w-full lg:w-64 rounded-md shadow-lg bg-main border border-slate-800 ring-opacity-5 lg:left-1/2 lg:-translate-x-1/2 hidden lg:block lg:translate-y-3 lg:opacity-0 lg:pointer-events-none">
+              <div class="w-7 overflow-hidden fixed left-1/2 -translate-x-1/2 -mt-4 hidden lg:inline-block">
+                <div class=" h-4 w-4 bg-main rotate-45 transform origin-bottom-left"></div>
+               </div>
+              <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="dropdown-button-0">
+                
+                
+                
+                
+                <a href="http://localhost:3000/solutions/#exploit_&amp;_vulnerability_intelligence"
+                  class="w-full lg:w-auto text-slate-100 hover:text-slate-300 transition-colors block px-5 py-1 mb-1 text-sm rounded-md tracking-wider font-normal"
+                  role="menuitem">Exploit and Vulnerability Intelligence</a>
+                
+                
+                
+                
+                <a href="http://localhost:3000/solutions/#critical_vulnerability_prioritization"
+                  class="w-full lg:w-auto text-slate-100 hover:text-slate-300 transition-colors block px-5 py-1 mb-1 text-sm rounded-md tracking-wider font-normal"
+                  role="menuitem">Critical Vulnerability Prioritization</a>
+                
+              </div>
+            </div>
+          </div>
+          <script>
+            document.addEventListener('DOMContentLoaded', () => {
+            
+            
+            const mqlsolutions = window.matchMedia("(max-width: 1023px)");
+            const buttonsolutions = document.getElementById("dropdown-button-0");
+            const dropdownsolutions = document.getElementById("dropdown-0");
+
+              if (mqlsolutions.matches) {
+                buttonsolutions.addEventListener('click', function () {
+                  dropdownsolutions.classList.toggle('hidden');
+                  this.querySelector('.icon').classList.toggle('rotate-180');
+                });
+              };
+
+              if (!mqlsolutions.matches) {
+                  let isHoveringButton = false;
+                  let isHoveringDropdown = false;
+
+                  const showDropdown = () => {
+                  dropdownsolutions.classList.remove("lg:opacity-0", "lg:translate-y-3", "lg:pointer-events-none");
+                  dropdownsolutions.classList.add("lg:opacity-100", "lg:pointer-events-auto");
+                  buttonsolutions.querySelector('.icon').classList.add("translate-y-1");
+                  };
+
+                  const hideDropdown = () => {
+                  if (!isHoveringButton && !isHoveringDropdown) {
+                      dropdownsolutions.classList.remove("lg:opacity-100", "lg:pointer-events-auto");
+                      dropdownsolutions.classList.add("lg:opacity-0", "lg:translate-y-3", "lg:pointer-events-none");
+                      buttonsolutions.querySelector('.icon').classList.remove("translate-y-1");
+                  }
+                  };
+
+                  
+                  buttonsolutions.addEventListener("mouseenter", () => {
+                  isHoveringButton = true;
+                  showDropdown();
+                  });
+
+                  buttonsolutions.addEventListener("mouseleave", () => {
+                  isHoveringButton = false;
+                  setTimeout(hideDropdown, 100); 
+                  });
+
+                  
+                  dropdownsolutions.addEventListener("mouseenter", () => {
+                  isHoveringDropdown = true;
+                  });
+
+                  dropdownsolutions.addEventListener("mouseleave", () => {
+                  isHoveringDropdown = false;
+                  setTimeout(hideDropdown, 100);
+                  });
+              };
+            });
+          </script>
+          
+          
+          
+          
+          
+
+          
+          <div class="relative inline-block text-left w-full px-4 lg:p-0">
+            <button
+            
+            
+              id="dropdown-button-1"
+              class="py-2 text-main font-normal dark:text-slate-100 hover:text-slate-950 dark:hover:text-white rounded lg:bg-transparent lg:text-primary-700 lg:p-0 font-poppins w-full flex gap-1 justify-between lg:justify-normal items-center text-start transition-transform duration-500 tracking-wider"
+              aria-haspopup="true" aria-expanded="false">
+              <a href="http://localhost:3000/docs/">
+                Resources
+              </a>
+              <div class="transition-all icon">
+                <img src="/images/dev/dropdown-arrow.svg" alt="" class="dark:hidden lg:min-w-[12px]">
+                <img src="/images/dev/dropdown-arrow-dark.svg" alt="" class="hidden dark:block lg:min-w-[12px]">  
+              </div>
+            </button>
+
+            <div id="dropdown-1"
+              class="relative origin-top lg:absolute mt-2 lg:group-hover:block lg:transition-transform w-full lg:w-64 rounded-md shadow-lg bg-main border border-slate-800 ring-opacity-5 lg:left-1/2 lg:-translate-x-1/2 hidden lg:block lg:translate-y-3 lg:opacity-0 lg:pointer-events-none">
+              <div class="w-7 overflow-hidden fixed left-1/2 -translate-x-1/2 -mt-4 hidden lg:inline-block">
+                <div class=" h-4 w-4 bg-main rotate-45 transform origin-bottom-left"></div>
+               </div>
+              <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="dropdown-button-1">
+                
+                
+                
+                
+                <a href="http://localhost:3000/docs/"
+                  class="w-full lg:w-auto text-slate-100 hover:text-slate-300 transition-colors block px-5 py-1 mb-1 text-sm rounded-md tracking-wider font-normal"
+                  role="menuitem">Documentation</a>
+                
+                
+                
+                
+                <a href="http://localhost:3000/docs/api/"
+                  class="w-full lg:w-auto text-slate-100 hover:text-slate-300 transition-colors block px-5 py-1 mb-1 text-sm rounded-md tracking-wider font-normal"
+                  role="menuitem">API</a>
+                
+                
+                
+                
+                <a href="http://localhost:3000/docs/"
+                  class="w-full lg:w-auto text-slate-100 hover:text-slate-300 transition-colors block px-5 py-1 mb-1 text-sm rounded-md tracking-wider font-normal"
+                  role="menuitem">Blog</a>
+                
+                
+                
+                
+                <a href="http://localhost:3000/docs/cve/"
+                  class="w-full lg:w-auto text-slate-100 hover:text-slate-300 transition-colors block px-5 py-1 mb-1 text-sm rounded-md tracking-wider font-normal"
+                  role="menuitem">CVEs</a>
+                
+              </div>
+            </div>
+          </div>
+          <script>
+            document.addEventListener('DOMContentLoaded', () => {
+            
+            
+            const mqlresources = window.matchMedia("(max-width: 1023px)");
+            const buttonresources = document.getElementById("dropdown-button-1");
+            const dropdownresources = document.getElementById("dropdown-1");
+
+              if (mqlresources.matches) {
+                buttonresources.addEventListener('click', function () {
+                  dropdownresources.classList.toggle('hidden');
+                  this.querySelector('.icon').classList.toggle('rotate-180');
+                });
+              };
+
+              if (!mqlresources.matches) {
+                  let isHoveringButton = false;
+                  let isHoveringDropdown = false;
+
+                  const showDropdown = () => {
+                  dropdownresources.classList.remove("lg:opacity-0", "lg:translate-y-3", "lg:pointer-events-none");
+                  dropdownresources.classList.add("lg:opacity-100", "lg:pointer-events-auto");
+                  buttonresources.querySelector('.icon').classList.add("translate-y-1");
+                  };
+
+                  const hideDropdown = () => {
+                  if (!isHoveringButton && !isHoveringDropdown) {
+                      dropdownresources.classList.remove("lg:opacity-100", "lg:pointer-events-auto");
+                      dropdownresources.classList.add("lg:opacity-0", "lg:translate-y-3", "lg:pointer-events-none");
+                      buttonresources.querySelector('.icon').classList.remove("translate-y-1");
+                  }
+                  };
+
+                  
+                  buttonresources.addEventListener("mouseenter", () => {
+                  isHoveringButton = true;
+                  showDropdown();
+                  });
+
+                  buttonresources.addEventListener("mouseleave", () => {
+                  isHoveringButton = false;
+                  setTimeout(hideDropdown, 100); 
+                  });
+
+                  
+                  dropdownresources.addEventListener("mouseenter", () => {
+                  isHoveringDropdown = true;
+                  });
+
+                  dropdownresources.addEventListener("mouseleave", () => {
+                  isHoveringDropdown = false;
+                  setTimeout(hideDropdown, 100);
+                  });
+              };
+            });
+          </script>
+          
+          
+          
+          
+          
+
+          
+          <li class="w-full lg:text-center">
+            <a href="http://localhost:3000/pricing/"
+              class="font-normal whitespace-nowrap block py-2 px-4 text-slate-950 hover:text-slate-800 dark:text-slate-100 dark:hover:text-slate-300 transition-colors rounded lg:bg-transparent lg:text-primary-700 lg:p-0 font-poppins tracking-wider">Pricing</a>
+          </li>
+          
+          
+          
+          
+          
+
+          
+          <li class="w-full lg:text-center">
+            <a href="http://localhost:3000/about-us/"
+              class="font-normal whitespace-nowrap block py-2 px-4 text-slate-950 hover:text-slate-800 dark:text-slate-100 dark:hover:text-slate-300 transition-colors rounded lg:bg-transparent lg:text-primary-700 lg:p-0 font-poppins tracking-wider">About Us</a>
+          </li>
+          
+          
+
+          <li class="js-login w-full my-3 lg:hidden">
+            <a href='/login'
+              class="text-black dark:text-white hover:bg-gradient-primary rounded-3xl after:rounded-3xl font-medium text-sm w-full block text-center py-3 hover:scale-105 transition-all border-gradient-primary font-poppins">Sign In</a>
+          </li>
+
+          <li class="js-signup w-full lg:hidden">
+            <a href='/signup'
+              class="rounded-3xl font-medium text-sm block text-center w-full py-3 hover:scale-105 transition-all font-poppins bg-style after-right-arrow after:relative after:top-[3px] after:left-[5px] hover:after:left-[7px]">Sign up</a>
+          </li>
+
+          <li class="js-logout w-full my-3 hidden">
+            <button
+              class="text-black dark:text-white hover:bg-gradient-primary rounded-3xl after:rounded-3xl font-medium text-sm w-full block text-center py-3 hover:scale-105 transition-all border-gradient-primary font-poppins">Logout</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<script>
+  const menuToggle = document.querySelector(
+    '[data-collapse-toggle="mobile-menu-2"]'
+  );
+  const mobileMenu = document.getElementById("mobile-menu-2");
+  const header = document.getElementById("header");
+
+  menuToggle.addEventListener("click", function () {
+    
+    mobileMenu.classList.toggle("hidden");
+  
+    
+    const openIcon = menuToggle.querySelector("svg:first-of-type");
+    const closeIcon = menuToggle.querySelector("svg:last-of-type");
+    openIcon.classList.toggle("hidden");
+    closeIcon.classList.toggle("hidden");
+  
+    
+    const isMenuOpen = window.getComputedStyle(mobileMenu).display === "block";
+  
+    
+    document.body.dataset.scroll = isMenuOpen ? "false" : "true";
+  
+    
+    if (isMenuOpen) {
+      header.classList.add('backdrop-blur-lg');
+    } else {
+      if (window.scrollY <= 50) {
+        header.classList.remove('backdrop-blur-lg');
+      } else {
+        updateHeaderStyle();
+      }
+    }
+  });  
+
+  
+  function updateHeaderStyle() {
+    const header = document.querySelector("header");
+
+    
+    if (window.scrollY > 50) {
+      header.classList.add('backdrop-blur-lg');
+    } else {
+      header.classList.remove('backdrop-blur-lg');
+    }
+  }
+
+  
+  window.addEventListener("scroll", updateHeaderStyle);
+
+  
+  window.addEventListener("load", updateHeaderStyle);
+</script>
+    <main>
+<section class="h-full w-full bg-slate-100 dark:bg-main">
+    <div class="mx-auto flex pt-20 max-w-screen-xl">
+      <div class="mobile-menu-overlay [transition:background-color_1.5s_ease] fixed inset-0 z-10 hidden opacity-50"></div>
+<aside class="sidebar-container sm:max-w-64 flex flex-col print:hidden md:shrink-0 md:w-64 md:self-start max-md:[transform:translate3d(-100%,0,0)] md:sticky">
+  <div class="hextra-scrollbar overflow-y-auto pt-28 md:pt-0 overflow-x-hidden p-4 grow md:h-[calc(100vh-var(--navbar-height)-var(--menu-height))]">
+    <button class="sidebar-closer text-black dark:text-white pl-5 relative -top-10">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="size-5 md:hidden" viewBox="0 0 16 16">
+        <path d="M12.5 3a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1zm0 3a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1zm.5 3.5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 .5-.5m-.5 2.5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1z"/>
+        <path d="M16 2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zM4 1v14H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zm1 0h9a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5z"/>
+      </svg>
+    </button>
+    <ul class="flex flex-col gap-1 md:hidden">
+      
+      
+          <li class=""><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm font-poppins transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-white dark:hover:bg-slate-900 dark:hover:text-white"
+    href="/docs/getting-started/"
+    
+  >Getting Started
+        <span class="hextra-sidebar-collapsible-button"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-[18px] min-w-[18px] rounded-sm p-0.5 hover:bg-slate-200 dark:hover:bg-slate-700"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" class="origin-center"></path></svg></span>
+    </a><div class="pr-0 overflow-hidden">
+        <ul class='relative flex flex-col gap-1 before:absolute before:inset-y-1 before:w-px before:bg-slate-200 before:content-[""] ml-3 pl-3 before:left-0 mr-3 pr-3 before:right-0 dark:before:bg-neutral-800'><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm font-poppins transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-white dark:hover:bg-slate-900 dark:hover:text-white"
+    href="/docs/getting-started/intro/"
+    
+  >Introduction
+    </a>
+              
+            </li></ul>
+      </div></li>
+          <li class=""><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm font-poppins transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-white dark:hover:bg-slate-900 dark:hover:text-white"
+    href="/docs/cve/"
+    
+  >CVEs
+    </a></li>
+          <li class=""><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm font-poppins transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-white dark:hover:bg-slate-900 dark:hover:text-white"
+    href="/docs/audit/"
+    
+  >Vulnerability Audit &amp; Policy Evaluation
+    </a></li>
+          <li class=""><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm font-poppins transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-white dark:hover:bg-slate-900 dark:hover:text-white"
+    href="/docs/api/"
+    
+  >Vulnerawise API Documentation
+    </a></li>
+          <li class=""><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm font-poppins transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-white dark:hover:bg-slate-900 dark:hover:text-white"
+    href="/docs/cli/"
+    
+  >Vulnerawise CLI User Guide
+    </a></li>
+          <li class="open"><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm font-poppins transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+        sidebar-active-item text-black dark:text-white bg-slate-100 dark:bg-slate-900 font-semibold"
+    href="/docs/search/"
+    
+  >Vulnerawise Search Syntax Guide
+    </a></li>
+      
+    </ul>
+
+    <ul class="flex flex-col gap-1 max-md:hidden">
+        
+          <li class=""><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm font-poppins transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-white dark:hover:bg-slate-900 dark:hover:text-white"
+    href="/docs/getting-started/"
+    
+  >Getting Started
+        <span class="hextra-sidebar-collapsible-button"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-[18px] min-w-[18px] rounded-sm p-0.5 hover:bg-slate-200 dark:hover:bg-slate-700"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" class="origin-center"></path></svg></span>
+    </a><div class="pr-0 overflow-hidden">
+        <ul class='relative flex flex-col gap-1 before:absolute before:inset-y-1 before:w-px before:bg-slate-200 before:content-[""] ml-3 pl-3 before:left-0 mr-3 pr-3 before:right-0 dark:before:bg-neutral-800'><li class="flex flex-col "><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm font-poppins transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-white dark:hover:bg-slate-900 dark:hover:text-white"
+    href="/docs/getting-started/intro/"
+    
+  >Introduction
+    </a>
+              
+            </li></ul>
+      </div></li>
+          <li class=""><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm font-poppins transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-white dark:hover:bg-slate-900 dark:hover:text-white"
+    href="/docs/cve/"
+    
+  >CVEs
+    </a></li>
+          <li class=""><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm font-poppins transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-white dark:hover:bg-slate-900 dark:hover:text-white"
+    href="/docs/audit/"
+    
+  >Vulnerability Audit &amp; Policy Evaluation
+    </a></li>
+          <li class=""><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm font-poppins transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-white dark:hover:bg-slate-900 dark:hover:text-white"
+    href="/docs/api/"
+    
+  >Vulnerawise API Documentation
+    </a></li>
+          <li class=""><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm font-poppins transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+      text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-white dark:hover:bg-slate-900 dark:hover:text-white"
+    href="/docs/cli/"
+    
+  >Vulnerawise CLI User Guide
+    </a></li>
+          <li class="open"><a
+    class="flex items-center justify-between gap-2 cursor-pointer rounded px-2 py-1.5 text-sm font-poppins transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
+        sidebar-active-item text-black dark:text-white bg-slate-100 dark:bg-slate-900 font-semibold"
+    href="/docs/search/"
+    
+  >Vulnerawise Search Syntax Guide
+    </a></li>
+        
+      </ul>
+    </div>
+</aside>
+      
+<nav class="hextra-toc order-last hidden w-64 shrink-0 xl:block print:hidden px-4" aria-label="table of contents">
+    <div class="hextra-scrollbar sticky top-16 overflow-y-auto pr-4 pt-6 text-sm [hyphens:auto] max-h-[calc(100vh-var(--navbar-height)-env(safe-area-inset-bottom))] ltr:-mr-4 rtl:-ml-4"><p class="mb-4 font-semibold text-lg tracking-tight text-black dark:text-white">On this page</p><ul>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-slate-700 dark:text-slate-300 w-full break-words" href="#basic-search-syntax">Basic Search Syntax
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-slate-700 dark:text-slate-300 w-full break-words" href="#search-by-cve-id">Search by CVE ID
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-slate-700 dark:text-slate-300 w-full break-words" href="#search-by-description">Search by Description
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-slate-700 dark:text-slate-300 w-full break-words" href="#basic-search">Basic Search
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-slate-700 dark:text-slate-300 w-full break-words" href="#exact-phrase-search">Exact Phrase Search
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-slate-700 dark:text-slate-300 w-full break-words" href="#boolean-operators">Boolean Operators
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-slate-700 dark:text-slate-300 w-full break-words" href="#and-operator">AND Operator
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-slate-700 dark:text-slate-300 w-full break-words" href="#or-operator">OR Operator
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-slate-700 dark:text-slate-300 w-full break-words" href="#grouping-with-parentheses">Grouping with Parentheses
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-8 rtl:pr-8 inline-block text-slate-700 dark:text-slate-300 w-full break-words" href="#operator-precedence">Operator Precedence
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-slate-700 dark:text-slate-300 w-full break-words" href="#examples-of-complex-description-searches">Examples of Complex Description Searches
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-slate-700 dark:text-slate-300 w-full break-words" href="#combining-with-other-filters">Combining with Other Filters
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-slate-700 dark:text-slate-300 w-full break-words" href="#search-by-severity--exploit-maturity">Search by Severity &amp; Exploit Maturity
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-slate-700 dark:text-slate-300 w-full break-words" href="#severity-levels">Severity Levels
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-slate-700 dark:text-slate-300 w-full break-words" href="#exploit-maturity-levels">Exploit Maturity Levels
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-slate-700 dark:text-slate-300 w-full break-words" href="#weaponized-filter">Weaponized Filter
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-slate-700 dark:text-slate-300 w-full break-words" href="#ransomware-filter">Ransomware Filter
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="ltr:pl-4 rtl:pr-4 inline-block text-slate-700 dark:text-slate-300 w-full break-words" href="#cisa-kev-catalog">CISA KEV Catalog
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-slate-700 dark:text-slate-300 w-full break-words" href="#additional-filters">Additional Filters
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-slate-700 dark:text-slate-300 w-full break-words" href="#results-pagination-and-format">Results Pagination and Format
+        </a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-slate-700 dark:text-slate-300 w-full break-words" href="#examples-of-common-searches">Examples of Common Searches
+        </a>
+      </li></ul>
+      <div class="mt-8 border-t bg-slate-100 pt-8 dark:bg-dark sticky bottom-0 flex flex-col items-start gap-2 pb-8 dark:bg-main"></div>
+    </div>
+  </nav>
+
+
+      <main
+        class="w-full break-words min-h-[calc(100vh-var(--navbar-height))] min-w-0 justify-center pb-8 pr-[calc(env(safe-area-inset-right)-1.5rem)]">
+        <button class="sidebar-opener text-black dark:text-white pl-5 -mt-40">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="size-5 md:hidden" viewBox="0 0 16 16">
+            <path d="M12.5 3a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1zm0 3a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1zm.5 3.5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 .5-.5m-.5 2.5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1z"/>
+            <path d="M16 2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zM4 1v14H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zm1 0h9a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5z"/>
+          </svg>
+        </button>
+        <article class="max-w-6xl px-5 pt-4 sm:pt-0 md:px-10 lg:px-16 prose prose-slate dark:prose-invert prose-code:overflow-scroll prose-pre:px-0">
+            <h1>Vulnerawise Search Syntax Guide</h1>
+            <p>This guide explains the various search options available in the Vulnerawise CLI tool. The search command provides powerful filtering capabilities to help you find specific CVEs based on various criteria.</p>
+<h2 id="basic-search-syntax">Basic Search Syntax</h2>
+<p>The basic format for search commands is:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vulnerawise search <span class="o">[</span>flags<span class="o">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>You must specify at least one filter to perform a search.</p>
+<h2 id="search-by-cve-id">Search by CVE ID</h2>
+<p>Search for specific CVE IDs using the <code>--cve</code> flag:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Search for a single CVE</span>
+</span></span><span class="line"><span class="cl">vulnerawise search --cve CVE-2023-1234
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Search for multiple CVEs (comma-separated)</span>
+</span></span><span class="line"><span class="cl">vulnerawise search --cve CVE-2023-1234,CVE-2023-5678
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="search-by-description">Search by Description</h2>
+<p>The <code>--description</code> flag uses SQLite&rsquo;s powerful Full-Text Search (FTS5) engine, allowing for advanced text search capabilities.</p>
+<h3 id="basic-search">Basic Search</h3>
+<p>Simple word or phrase searches:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Search for vulnerabilities mentioning &#34;microsoft&#34;</span>
+</span></span><span class="line"><span class="cl">vulnerawise search --description microsoft
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="exact-phrase-search">Exact Phrase Search</h3>
+<p>Find CVEs with an exact phrase in the description:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Find CVEs with the exact phrase &#34;remote code execution&#34;</span>
+</span></span><span class="line"><span class="cl">vulnerawise search --description <span class="s1">&#39;&#34;remote code execution&#34;&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>Note:</strong> When using quoted phrases in your shell, you&rsquo;ll need to escape them:</p>
+<ul>
+<li>Use single quotes around the argument: <code>'&quot;phrase&quot;'</code></li>
+<li>Or escape the quotes: <code>\&quot;phrase\&quot;</code></li>
+</ul>
+<h3 id="boolean-operators">Boolean Operators</h3>
+<h4 id="and-operator">AND Operator</h4>
+<p>Multiple terms are treated as an AND condition by default, but you can make it explicit:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Find CVEs containing both &#34;apache&#34; AND &#34;2.4.49&#34;</span>
+</span></span><span class="line"><span class="cl">vulnerawise search --description <span class="s1">&#39;&#34;apache&#34; AND &#34;2.4.49&#34;&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="or-operator">OR Operator</h4>
+<p>Use OR to find CVEs matching any of the specified terms:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Find CVEs containing either &#34;apache&#34; OR &#34;nginx&#34;</span>
+</span></span><span class="line"><span class="cl">vulnerawise search --description <span class="s1">&#39;&#34;apache&#34; OR &#34;nginx&#34;&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="grouping-with-parentheses">Grouping with Parentheses</h4>
+<p>You can use parentheses to group terms and control operator precedence:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Find CVEs about Apache that mention either version 2.4.49 or 2.4.50</span>
+</span></span><span class="line"><span class="cl">vulnerawise search --description <span class="s1">&#39;&#34;apache&#34; AND (2.4.49 OR 2.4.50)&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Find CVEs with either &#34;XSS&#34; or &#34;cross-site scripting&#34; that are related to PHP</span>
+</span></span><span class="line"><span class="cl">vulnerawise search --description <span class="s1">&#39;(&#34;XSS&#34; OR &#34;cross-site scripting&#34;) AND &#34;PHP&#34;&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="operator-precedence">Operator Precedence</h4>
+<p>When combining operators:</p>
+<ul>
+<li><code>AND</code> has higher precedence than <code>OR</code></li>
+<li>Parentheses can override the default precedence</li>
+</ul>
+<p>For example, the search:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vulnerawise search --description <span class="s1">&#39;&#34;apache&#34; OR &#34;nginx&#34; AND &#34;vulnerability&#34;&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>is interpreted as:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="s2">&#34;apache&#34;</span> OR <span class="o">(</span><span class="s2">&#34;nginx&#34;</span> AND <span class="s2">&#34;vulnerability&#34;</span><span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>To search for vulnerabilities with either &ldquo;apache&rdquo; or &ldquo;nginx&rdquo; that also contain &ldquo;vulnerability&rdquo;, use:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vulnerawise search --description <span class="s1">&#39;(&#34;apache&#34; OR &#34;nginx&#34;) AND &#34;vulnerability&#34;&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="examples-of-complex-description-searches">Examples of Complex Description Searches</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Find buffer overflow vulnerabilities in either OpenSSL or LibreSSL</span>
+</span></span><span class="line"><span class="cl">vulnerawise search --description <span class="s1">&#39;&#34;buffer overflow&#34; AND (&#34;OpenSSL&#34; OR &#34;LibreSSL&#34;)&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Find authentication bypass issues in Spring or Spring Boot frameworks</span>
+</span></span><span class="line"><span class="cl">vulnerawise search --description <span class="s1">&#39;(&#34;authentication bypass&#34; OR &#34;auth bypass&#34;) AND (&#34;Spring&#34; OR &#34;Spring Boot&#34;)&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Find SQL injection vulnerabilities in WordPress plugins</span>
+</span></span><span class="line"><span class="cl">vulnerawise search --description <span class="s1">&#39;&#34;SQL injection&#34; AND &#34;WordPress&#34; AND &#34;plugin&#34;&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="combining-with-other-filters">Combining with Other Filters</h3>
+<p>These description search patterns can be combined with other filters for even more precise results:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Find high severity remote code execution vulnerabilities in Apache</span>
+</span></span><span class="line"><span class="cl">vulnerawise search --description <span class="s1">&#39;&#34;remote code execution&#34; AND &#34;apache&#34;&#39;</span> --severity high
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Find recently published authentication bypass vulnerabilities</span>
+</span></span><span class="line"><span class="cl">vulnerawise search --description <span class="s1">&#39;&#34;authentication bypass&#34;&#39;</span> --published <span class="s2">&#34;last 30 days&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="search-by-severity--exploit-maturity">Search by Severity &amp; Exploit Maturity</h2>
+<h3 id="severity-levels">Severity Levels</h3>
+<p>Vulnerabilities are categorized into severity levels based on their impact:</p>
+<ul>
+<li><code>low</code>: Minimal impact or requires significant conditions for exploitation.</li>
+<li><code>medium</code>: Moderate impact, may require some conditions for exploitation.</li>
+<li><code>high</code>: Severe impact, easy to exploit, or affects critical systems.</li>
+<li><code>critical</code>: Extreme impact, typically allowing full system compromise or widespread damage with minimal effort.</li>
+</ul>
+<p>Example:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Search for high severity vulnerabilities</span>
+</span></span><span class="line"><span class="cl">vulnerawise search --severity high
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Search for multiple severity levels</span>
+</span></span><span class="line"><span class="cl">vulnerawise search --severity medium,high
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="exploit-maturity-levels">Exploit Maturity Levels</h3>
+<p>Exploit maturity defines the likelihood of exploitation:</p>
+<ul>
+<li><code>none</code>: No public exploit available.</li>
+<li><code>poc</code>: Proof-of-concept exploit exists.</li>
+<li><code>active</code>: Evidence of active exploitation in the wild.</li>
+</ul>
+<p>Example:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Find CVEs with active exploitation in the wild</span>
+</span></span><span class="line"><span class="cl">vulnerawise search --maturity active
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Find CVEs with multiple maturity levels</span>
+</span></span><span class="line"><span class="cl">vulnerawise search --maturity active,poc
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="weaponized-filter">Weaponized Filter</h3>
+<p>Filter vulnerabilities that are marked with weaponized exploits. This flag targets vulnerabilities involving advanced exploitation techniques.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Find vulnerabilities with weaponized exploits</span>
+</span></span><span class="line"><span class="cl">vulnerawise search --weaponized
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Combine with other filters for more focused results</span>
+</span></span><span class="line"><span class="cl">vulnerawise search --weaponized --severity high
+</span></span><span class="line"><span class="cl">vulnerawise search --weaponized --description apache
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="ransomware-filter">Ransomware Filter</h3>
+<p>Filter vulnerabilities that are known to be exploited by ransomware groups:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Find all vulnerabilities exploited by ransomware groups</span>
+</span></span><span class="line"><span class="cl">vulnerawise search --ransomware
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Combine with other filters to focus on specific ransomware threats</span>
+</span></span><span class="line"><span class="cl">vulnerawise search --ransomware --severity high
+</span></span><span class="line"><span class="cl">vulnerawise search --ransomware --description apache
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="cisa-kev-catalog">CISA KEV Catalog</h3>
+<p>Filter vulnerabilities that are included in the CISA Known Exploited Vulnerabilities (KEV) catalog:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Find all vulnerabilities in the CISA KEV catalog</span>
+</span></span><span class="line"><span class="cl">vulnerawise search --cisa-kev
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Find recently added CISA KEV entries</span>
+</span></span><span class="line"><span class="cl">vulnerawise search --cisa-kev --published <span class="s2">&#34;last 30 days&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Find critical severity CISA KEV entries</span>
+</span></span><span class="line"><span class="cl">vulnerawise search --cisa-kev --severity critical
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="additional-filters">Additional Filters</h2>
+<p>Other filters available include:</p>
+<ul>
+<li><code>--epss</code>: Filter by EPSS score percentage (e.g., <code>&gt;=50</code>, <code>&lt;30</code>, <code>=70</code>)</li>
+<li><code>--exploit-published</code>: Filter CVEs by the published date of associated exploit data (e.g., <code>last 7 days</code>, <code>last 24 hours</code>)</li>
+<li><code>--last-modified</code>: Filter by last modified date (e.g., <code>last 7 days</code> or <code>YYYY-MM-DD:YYYY-MM-DD</code>)</li>
+<li><code>--page</code>: Pagination page number (default is 1)</li>
+<li><code>--limit</code>: Maximum number of results to return (default is 20)</li>
+<li><code>--print-exploit-only</code>: Print only exploit URLs</li>
+<li><code>--published</code>: Filter by CVEs published in a relative time span (e.g., <code>last 7 days</code>, <code>last 24 hours</code>)</li>
+<li><code>--published-date-range</code>: Filter by a specific published date range (e.g., <code>2024-01-01:2024-01-31</code>)</li>
+<li><code>--format</code>: Output format; options are <code>table</code>, <code>json</code>, or <code>csv</code> (default is <code>table</code>)</li>
+</ul>
+<h2 id="results-pagination-and-format">Results Pagination and Format</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Limit to 20 results</span>
+</span></span><span class="line"><span class="cl">vulnerawise search --description apache --limit <span class="m">20</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Retrieve the next page of results (using offset method)</span>
+</span></span><span class="line"><span class="cl">vulnerawise search --description apache --limit <span class="m">20</span> --offset <span class="m">20</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Format output as JSON</span>
+</span></span><span class="line"><span class="cl">vulnerawise search --description apache --format json
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="examples-of-common-searches">Examples of Common Searches</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Find critical vulnerabilities for immediate action</span>
+</span></span><span class="line"><span class="cl">vulnerawise search --maturity active --severity high
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Monitor new exploits in the last week</span>
+</span></span><span class="line"><span class="cl">vulnerawise search --exploit-published <span class="s2">&#34;last 7 days&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Check for vulnerabilities in a specific technology</span>
+</span></span><span class="line"><span class="cl">vulnerawise search --description kubernetes --published <span class="s2">&#34;last 90 days&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Generate a report of all high-severity issues from last quarter</span>
+</span></span><span class="line"><span class="cl">vulnerawise search --severity high --published-date-range 2023-01-01:2023-03-31 --format json
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+        </article>
+      </main>
+    </div>
+</section>
+</main>
+    <footer class="pt-10 bg-white dark:bg-blue relative overflow-hidden z-30">
+  <img
+    src='/images/dev/dark_footer_layer.png'
+    alt=""
+    class="absolute right-0 top-0 opacity-90 z-0 hidden dark:block"
+  />
+  <img
+    src='/images/dev/light_footer_layer.png'
+    alt=""
+    class="absolute right-0 top-0 opacity-90 z-0 dark:hidden"
+  />
+  <div
+    class="container mx-auto px-5 sm:px-10 lg:px-8 divide-slate-300 dark:divide-slate-700 divide-y"
+  >
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-5 gap-x-[50px] pt-16 pb-7 relative z-20">
+      <div>
+        <div class="flex flex-col gap-y-5">
+          <a href="">
+            <img
+              src='/images/white_logo.png'
+              alt=""
+              class="max-w-[17rem] h-6 sm:h-9 md:max-w-full hidden dark:block"
+            />
+          </a>
+          <a href="">
+            <img
+              src='/images/black_logo.png'
+              alt=""
+              class="max-w-[17rem] h-6 sm:h-9 md:max-w-full dark:hidden"
+            />
+          </a>
+          
+          
+          <p class="font-poppins text-[16px] leading-[26px] text-slate-950 dark:text-slate-400">
+            VulneraWise: Intelligence for tomorrow’s threats
+          </p>
+          <div
+            class="rounded-full p-[.37rem] flex justify-between bg-slate-200 dark:bg-slate-800 max-w-[17rem] md:max-w-[18rem]"
+          >
+            <input
+              type="text"
+              placeholder="Your Email"
+              class="bg-transparent font-poppins text-[#697586] pl-3 focus:outline-none w-[88%]"
+            />
+            <button class="p-2 bg-style rounded-full" aria-label="Send">
+              <img src='/images/dev/send-icon.svg' alt="" />
+            </button>
+          </div>
+          
+          
+        </div>
+      </div>
+      <div>
+        <ul class="flex flex-col gap-y-[17px]">
+          
+          <li>
+            <a
+              href="http://localhost:3000/"
+              class="font-poppins text-slate-900 hover:text-black dark:text-slate-400 dark:hover:text-slate-500 transition-colors"
+              >Home</a
+            >
+          </li>
+          
+          <li>
+            <a
+              href="http://localhost:3000/pricing/"
+              class="font-poppins text-slate-900 hover:text-black dark:text-slate-400 dark:hover:text-slate-500 transition-colors"
+              >Pricing/Packages</a
+            >
+          </li>
+          
+          <li>
+            <a
+              href="http://localhost:3000/about-us/"
+              class="font-poppins text-slate-900 hover:text-black dark:text-slate-400 dark:hover:text-slate-500 transition-colors"
+              >About Us</a
+            >
+          </li>
+          
+          <li>
+            <a
+              href="http://localhost:3000/about-us/#form"
+              class="font-poppins text-slate-900 hover:text-black dark:text-slate-400 dark:hover:text-slate-500 transition-colors"
+              >Contact</a
+            >
+          </li>
+          
+          <li>
+            <a
+              href="http://localhost:3000/policies/"
+              class="font-poppins text-slate-900 hover:text-black dark:text-slate-400 dark:hover:text-slate-500 transition-colors"
+              >Privacy Policy</a
+            >
+          </li>
+          
+          <li>
+            <a
+              href="http://localhost:3000/terms/"
+              class="font-poppins text-slate-900 hover:text-black dark:text-slate-400 dark:hover:text-slate-500 transition-colors"
+              >Terms &amp; Conditions</a
+            >
+          </li>
+          
+        </ul>
+      </div>
+      <div class="flex flex-col gap-y-5">
+        
+        <ul class="flex flex-col gap-y-5">
+          <span class="text-black dark:text-style font-poppins text-lg font-semibold dark:font-medium"
+            >Solutions</span
+          >
+          
+          <li>
+            <a
+              href="http://localhost:3000/solutions/#exploit_&amp;_vulnerability_intelligence"
+              class="font-poppins text-slate-900 hover:text-black dark:text-slate-400 dark:hover:text-slate-500 transition-colors"
+              >Exploit and Vulnerability Intelligence</a
+            >
+          </li>
+          
+          <li>
+            <a
+              href="http://localhost:3000/solutions/#critical_vulnerability_prioritization"
+              class="font-poppins text-slate-900 hover:text-black dark:text-slate-400 dark:hover:text-slate-500 transition-colors"
+              >Critical Vulnerability Prioritization</a
+            >
+          </li>
+          
+        </ul>
+         
+        <ul class="flex flex-col gap-y-5">
+          <span class="text-black dark:text-style font-poppins text-lg font-semibold dark:font-medium "
+            >Resources</span
+          >
+          
+          <li>
+            <a
+              href="http://localhost:3000/docs/"
+              class="font-poppins text-slate-900 hover:text-black dark:text-slate-400 dark:hover:text-slate-500 transition-colors"
+              >Documentation</a
+            >
+          </li>
+          
+          <li>
+            <a
+              href="http://localhost:3000/docs/api/"
+              class="font-poppins text-slate-900 hover:text-black dark:text-slate-400 dark:hover:text-slate-500 transition-colors"
+              >API</a
+            >
+          </li>
+          
+          <li>
+            <a
+              href="http://localhost:3000/docs/"
+              class="font-poppins text-slate-900 hover:text-black dark:text-slate-400 dark:hover:text-slate-500 transition-colors"
+              >Blog</a
+            >
+          </li>
+          
+          <li>
+            <a
+              href="http://localhost:3000/docs/cve/"
+              class="font-poppins text-slate-900 hover:text-black dark:text-slate-400 dark:hover:text-slate-500 transition-colors"
+              >CVEs</a
+            >
+          </li>
+          
+        </ul>
+        
+      </div>
+    </div>
+    <div class="pb-8 pt-7 flex flex-wrap justify-between items-center gap-3">
+      
+      <p class="text-[16px] font-poppins text-slate-950 dark:text-slate-400 leading-6">
+        © 2024 All Rights Reserved VulneraWise.
+      </p>
+      
+      <div class="flex flex-wrap gap-2 z-20">
+        
+        <a
+          href="/"
+          class="size-10 bg-slate-700 rounded-full hover:scale-105 transition-transform flex justify-center items-center"
+        >
+          <img src='/images/dev/github-icon.svg' alt=""/>
+        </a>
+        
+        
+        <a
+          href="/"
+          class="size-10 bg-slate-700 rounded-full hover:scale-105 transition-transform flex justify-center items-center"
+        >
+          <img src='/images/dev/twitter-icon.svg' alt="" />
+        </a>
+        
+        
+        <a
+          href="/"
+          class="size-10 bg-slate-700 rounded-full hover:scale-105 transition-transform flex justify-center items-center"
+        >
+          <img src='/images/dev/linkedin-icon.svg' alt="" />
+        </a>
+        
+        
+        <div
+          class="rounded-3xl font-medium text-sm px-5 py-2 bg-style">
+          <a href="/about-us/#form"
+            class="text-black font-medium text-sm font-poppins">
+            <span class="flex justify-center items-center gap-2">
+              Schedule Demo
+              <img src='/images/dev/right-arrow-dark.svg' alt="">
+            </span>
+          </a>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</footer>
+ 
+    <div class="searchContainer fixed inset-0 bg-white dark:bg-black/80 z-50 px-5 hidden border border-slate-200 dark:border-slate-700">
+  <div class="text-end">
+    <button class="searchClose text-black/80 dark:text-white/80 hover:text-black dark:hover:text-white pt-5">
+      <svg class="size-5 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+        <path
+          d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" />
+      </svg>
+    </button>
+  </div>
+  <div class="flex flex-col gap-y-3 justify-center items-center h-full max-w-full sm:max-w-xl mx-auto">
+    <div class="flex w-full justify-between">
+      <button onclick="openTab(event, 'search')"
+        class="text-black dark:text-white flex items-center justify-center gap-2 pb-3 w-full border-b border-slate-300 dark:border-slate-700 active-tab tablinks font-sans">
+        <div>
+          <svg class="size-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <path
+              d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8-12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
+          </svg>
+        </div>
+        Search
+      </button>
+      <button onclick="openTab(event, 'automate')"
+        class="text-black dark:text-white flex items-center justify-center gap-2 pb-3 w-full border-b border-slate-300 dark:border-slate-700 tablinks font-sans">
+        <div>
+          <svg class="size-5 fill-current text-inherit" viewBox="0 0 24 24" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path class="fill-current" fill-rule="evenodd" clip-rule="evenodd"
+              d="M11.373 10.471C9.43517 9.48416 8.72594 8.17465 9.19451 6.57159C9.60731 5.15903 10.9986 4.23447 12.4156 4.45187C13.1224 4.56017 13.744 4.85411 14.2284 5.41491C14.9616 6.2643 15.1272 7.25575 14.9034 8.35988L15.5728 8.54434C15.9165 8.63908 16.2474 8.73027 16.5768 8.82096C17.2896 6.83512 16.4534 4.51486 14.6278 3.32368C12.7268 2.0836 10.2638 2.34521 8.6493 3.96084C7.80641 4.80449 7.34519 5.83385 7.23791 7.02497C7.08622 8.71005 7.77185 10.0698 8.92375 11.2331L7.09224 14.3523C7.03239 14.3568 6.98082 14.36 6.93469 14.3628C6.85025 14.368 6.78409 14.372 6.71885 14.3815C5.5148 14.5548 4.66735 15.6421 4.86996 16.7512C5.09859 18.0043 6.22135 18.7734 7.37374 18.4668C8.59566 18.1417 9.24583 16.9441 8.78496 15.7134C8.61802 15.2679 8.72145 14.9824 8.93041 14.6319C9.51907 13.6443 10.0991 12.6512 10.6899 11.6397C10.9156 11.2531 11.1431 10.8637 11.373 10.471ZM15.52 11.9636C14.9302 10.9074 14.3351 9.84144 13.749 8.79131C13.7783 8.7167 13.8068 8.6465 13.8343 8.57906C13.8923 8.43623 13.9455 8.30563 13.9897 8.17226C14.2238 7.46806 14.0824 6.82541 13.6375 6.25442C13.0932 5.55555 12.1434 5.30173 11.334 5.61623C10.517 5.93356 9.99424 6.74816 10.0298 7.64931C10.0659 8.56049 10.6679 9.37379 11.6005 9.538C12.1589 9.6362 12.4324 9.90553 12.6802 10.3696C13.2069 11.3567 13.7527 12.3332 14.299 13.3105L14.2992 13.3109C14.515 13.6969 14.7308 14.0831 14.9457 14.4701C16.7748 13.2319 18.288 13.2713 19.4178 14.5612C20.3967 15.6789 20.4173 17.3813 19.466 18.523C18.3504 19.8613 16.8477 19.9145 15.1295 18.7844C14.6535 19.1888 14.208 19.5674 13.7647 19.9443C15.5042 21.7078 17.9872 21.9423 19.9506 20.5695C21.8634 19.2322 22.5292 16.665 21.5552 14.4973C20.7489 12.7029 18.5012 11.0269 15.52 11.9636ZM11.561 17.3759H15.1498C15.1999 17.4437 15.2466 17.5107 15.2923 17.5761C15.3876 17.7126 15.478 17.8421 15.5837 17.9571C16.3438 18.7826 17.6272 18.8235 18.4397 18.0574C19.2817 17.2635 19.3198 15.9298 18.5241 15.1009C17.7455 14.2898 16.4148 14.2123 15.6919 15.0711C15.2528 15.593 14.8028 15.6544 14.2199 15.6451C13.1545 15.6284 12.0886 15.6316 11.0229 15.6348C10.5954 15.6361 10.168 15.6373 9.74062 15.6373C9.83752 17.7701 9.04371 19.0991 7.46923 19.4146C5.92747 19.7236 4.50754 18.9246 4.00768 17.467C3.43984 15.8106 4.14208 14.4859 6.17102 13.4346C6.01835 12.8728 5.86401 12.3043 5.71137 11.7412C3.49998 12.2306 1.8409 14.4097 2.01215 16.8612C2.16348 19.0252 3.88223 20.947 5.98423 21.2913C7.12588 21.4785 8.19853 21.2841 9.19378 20.7107C10.474 19.973 11.217 18.8129 11.561 17.3759Z"
+              fill="#323544" />
+          </svg>
+        </div>
+        Automate
+      </button>
+    </div>
+
+    <style>
+      #resultBox:hover>.card::after {
+        opacity: 1;
+      }
+
+      #resultBox>.card:hover::before {
+        opacity: 1;
+      }
+
+      #resultBox>.card::after {
+        border-radius: inherit;
+        content: "";
+        min-height: 100%;
+        left: 0px;
+        opacity: 1;
+        position: absolute;
+        top: 0px;
+        transition: opacity 500ms;
+        width: 100%;
+      }
+
+      #searchBox>.card::after {
+        background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y),
+            rgba(35, 118, 221, 0.4),
+            rgba(255, 207, 113, 0.4),
+            transparent 40%);
+        z-index: 1;
+      }
+
+      #resultBox>.card>.card-content {
+        border-radius: inherit;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        inset: 1px;
+        padding: 15px;
+        position: absolute;
+        z-index: 5;
+      }
+    </style>
+    <div id="resultBox">
+      <div class="card relative rounded-3xl mt-3 min-h-[25rem] w-[90vw] md:w-[40rem]">
+        <div class="card-content bg-white dark:bg-blue inset-0">
+          
+          
+          <img src="/images/dev/gradient.png" alt="" class="absolute left-0 right-0 bottom-0 size-full rounded-br-3xl">
+          <img src="/images/dev/search-bg-pattern.png" alt="" class="absolute inset-0 size-full rounded-3xl">
+                <div class="relative z-10 p-1 lg:p-3 lg:mt-2.5 lg:max-w-lg mx-auto">
+          <div id="search" class="tabcontent relative z-10">
+            <div
+              class="border-gradient-primary bg-white dark:bg-main gradient-border-1 after:rounded-md cursor-text p-2 flex gap-2 items-center w-full text-black dark:text-white transition-colors"
+            >
+              <div class="text-inherit">
+                <label for="floatingSearch">
+                  <svg class="size-3 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <path
+                      d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8-12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
+                  </svg>
+                </label>
+              </div>
+              <input type="text" id="floatingSearch"
+                class="overflow-hidden border-0 bg-transparent grow text-black dark:text-white focus:outline-none popup-search relative z-10"
+                placeholder="Search CVE, keyword, or software...">
+              <div class="result-container px-3 space-y-2 absolute rounded-3xl top-12 -translate-x-1/2 left-1/2 min-w-[100%] bg-white dark:bg-blue border border-slate-200 dark:border-slate-700 shadow-lg hidden font-sans text-black dark:text-white">
+                <img src="/images/dev/gradient.png" alt="" class="absolute left-0 right-0 bottom-0 size-full rounded-3xl -pt-5">
+                <div class="flex gap-2 items-center relative z-10">
+                  <div class="size-3">
+                    <img src='/images/dev/suggest.svg' alt="" class="size-full">
+                  </div>
+                  <span class="text-style font-poppins font-semibold">Search suggestion:</span>
+                </div>
+                <div class="results relative z-10 space-y-2 h-[18.5rem] overflow-y-scroll text-black dark:text-white font-poppins"></div>
+              </div>
+            </div>
+            <div class="flex justify-center items-center flex-col mt-16 text-center space-y-2">
+              <div class="mb-3 flex justify-center items-center h-[100px] w-[75px]">
+                <img src='/images/dev/search-tab.svg' alt="" class="size-full">
+              </div>
+              <strong class="text-black dark:text-white">Instantly search our enriched vulnerability
+                database.</strong>
+              <p class="text-sm text-slate-800 dark:text-slate-200">Find any CVE or keyword in real-time—no noise, just
+                results that matter.</p>
+            </div>
+          </div>
+
+          <div id="automate" class="tabcontent relative z-10 hidden mt-16">
+            <div class="flex justify-center items-center flex-col text-center space-y-2">
+              <div class="mb-3 flex justify-center items-center h-[100px] w-[87.5px]">
+                <img src='/images/dev/automate-tab.svg' alt="" class="size-full object-contain">
+              </div>
+              <strong class="text-black dark:text-white">Need to integrate prioritization into your
+                workflows?</strong>
+              <p class="text-sm text-slate-800 dark:text-slate-200">Use our powerful API or CLI to automate
+                vulnerability triage at scale.</p>
+              <p class="text-sm text-slate-800 dark:text-slate-200">Build your own decision tree logic into any security
+                tool.</p>
+              <a href='/docs/api/'
+                class="my-3 rounded-3xl font-medium text-slate-950 px-5 py-3 hover:scale-105 transition-all font-poppins bg-style flex justify-center items-center gap-2">
+                <p class="text-inherit font-poppins text-sm">View API & CLI Docs</p>
+                <div class="size-3">
+                  <img src='/images/dev/dark_right_arrow.png' alt="" class="size-full">
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+        
+        document.getElementById("resultBox").onmousemove = e => {
+          for (const card of document.getElementsByClassName("card")) {
+            const rect = card.getBoundingClientRect(),
+              x = e.clientX - rect.left,
+              y = e.clientY - rect.top;
+
+            card.style.setProperty("--mouse-x", `${x}px`);
+            card.style.setProperty("--mouse-y", `${y}px`);
+          };
+        };
+      </script>
+
+    </div>
+  </div>
+
+  <script>
+    function openTab(evt, tabName) {
+      
+      let i, tabcontent, tablinks;
+
+      
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].classList.add('hidden');
+      }
+
+      
+      tablinks = document.getElementsByClassName("tablinks");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active-tab", "");
+      }
+
+      
+      document.getElementById(tabName).classList.remove('hidden');
+      evt.currentTarget.className += " active-tab";
+    }
+
+  </script>
+</div>
+    
+ 
+
+
+ 
+<script src="/js/bundle.js"></script>
+ 
+  </body>
+</html>

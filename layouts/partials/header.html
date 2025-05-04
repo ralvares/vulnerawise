@@ -1,0 +1,241 @@
+<header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all">
+  <nav class="px-2 py-3 lg:py-5 container mx-auto lg:px-0">
+    <div class="flex flex-wrap lg:flex-nowrap justify-between items-center">
+      <a href="{{ .Site.BaseURL | safeURL }}" class="flex items-center">
+        <img src='{{ .Site.Params.light_logo | relURL }}' class="mr-3 h-6 sm:h-9 dark:hidden"
+          alt="{{ .Site.Title }} Logo" />
+        <img src='{{ .Site.Params.dark_logo | relURL }}' class="mr-3 h-6 sm:h-9 hidden dark:block"
+          alt="{{ .Site.Title }} Logo" />
+      </a>
+      <div class="flex items-center lg:order-2 gap-x-1 lg:gap-x-0">
+        <button class="p-2 lg:p-3 lg:mr-2 cursor-pointer change-theme border-gradient-primary after:rounded-full">
+          <div class="hidden dark:block text-slate-200 size-5">
+            <img src='{{ "images/dev/white-sun-icon.png" | relURL }}' alt="" class="size-full object-contain">
+          </div>
+          <div class="dark:hidden size-5">
+            <svg fill="currentColor" class="size-full object-contain" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M144.7 98.7c-21 34.1-33.1 74.3-33.1 117.3c0 98 62.8 181.4 150.4 211.7c-12.4 2.8-25.3 4.3-38.6 4.3C126.6 432 48 353.3 48 256c0-68.9 39.4-128.4 96.8-157.3zm62.1-66C91.1 41.2 0 137.9 0 256C0 379.7 100 480 223.5 480c47.8 0 92-15 128.4-40.6c1.9-1.3 3.7-2.7 5.5-4c4.8-3.6 9.4-7.4 13.9-11.4c2.7-2.4 5.3-4.8 7.9-7.3c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-3.7 .6-7.4 1.2-11.1 1.6c-5 .5-10.1 .9-15.3 1c-1.2 0-2.5 0-3.7 0l-.3 0c-96.8-.2-175.2-78.9-175.2-176c0-54.8 24.9-103.7 64.1-136c1-.9 2.1-1.7 3.2-2.6c4-3.2 8.2-6.2 12.5-9c3.1-2 6.3-4 9.6-5.8c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-3.6-.3-7.1-.5-10.7-.6c-2.7-.1-5.5-.1-8.2-.1c-3.3 0-6.5 .1-9.8 .2c-2.3 .1-4.6 .2-6.9 .4z"/></svg>
+          </div>
+        </button>
+        <button
+          class="openSearch rounded-full after:rounded-full xl:flex text-black dark:text-white xl:rounded-3xl xl:after:rounded-3xl font-medium text-sm p-2 lg:p-3 xl:px-5 xl:py-3 xl:hover:scale-105 transition-all lg:mr-2 border-gradient-primary font-poppins gap-2 justify-center items-center cursor-pointer xl:cursor-text">
+          <div class="size-5 text-inherit">
+            <svg class="size-full object-contain fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+              <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/>
+            </svg>
+          </div>
+          <span class="hidden xl:inline">
+            Search
+          </span>
+        </button>
+        <a href='{{ "login" | relURL }}'
+          class="js-login hidden lg:block text-black dark:text-white hover:bg-style hover:text-black hover:after:p-0 rounded-3xl after:rounded-3xl font-medium text-sm px-5 py-3 hover:scale-105 transition-all mr-2 border-gradient-primary font-poppins">
+          Sign In
+        </a>
+
+        <!-- Signup Button -->
+        <a href='{{ "signup" | relURL }}'
+          class="js-signup hidden lg:block rounded-3xl font-medium text-sm px-5 py-3 hover:scale-105 transition-all font-poppins bg-style">
+          Sign up
+        </a>
+
+        <!-- Logout Button -->
+        <button
+          class="js-logout hidden text-black dark:text-white hover:bg-style hover:text-black hover:after:p-0 rounded-3xl after:rounded-3xl font-medium text-sm px-5 py-3 hover:scale-105 transition-all mr-2 border-gradient-primary font-poppins">
+          Logout
+        </button>
+        <button data-collapse-toggle="mobile-menu-2" type="button"
+          class="inline-flex items-center p-2 text-sm text-black dark:text-white rounded-lg lg:hidden focus:outline-none"
+          aria-controls="mobile-menu-2" aria-expanded="false">
+          <span class="sr-only">Open main menu</span>
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd"
+              d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+              clip-rule="evenodd"></path>
+          </svg>
+          <svg class="hidden w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd"
+              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+              clip-rule="evenodd"></path>
+          </svg>
+        </button>
+      </div>
+      <div class="hidden justify-center items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
+        <ul class="flex flex-col mt-4 lg:flex-row lg:mt-0 justify-center items-center lg:space-x-5">
+          {{ $current := . }}
+          {{ range $index, $item := site.Menus.main }}
+          {{ $menu := .URL | absURL }}
+          {{ $page := $current.RelPermalink | absURL }}
+          {{ $active := eq $menu $page }}
+
+          {{ if .HasChildren }}
+          <div class="relative inline-block text-left w-full px-4 lg:p-0">
+            <button
+            {{ $light_arrow := "images/dev/dropdown-arrow.svg" | relURL }}
+            {{ $dark_arrow := "images/dev/dropdown-arrow-dark.svg" | relURL }}
+              id="dropdown-button-{{ $index }}"
+              class="py-2 text-main font-normal dark:text-slate-100 hover:text-slate-950 dark:hover:text-white rounded lg:bg-transparent lg:text-primary-700 lg:p-0 font-poppins w-full flex gap-1 justify-between lg:justify-normal items-center text-start transition-transform duration-500 tracking-wider"
+              aria-haspopup="true" aria-expanded="false">
+              <a href="{{ .URL | absURL }}">
+                {{ .Name }}
+              </a>
+              <div class="transition-all icon">
+                <img src="{{ $light_arrow }}" alt="" class="dark:hidden lg:min-w-[12px]">
+                <img src="{{ $dark_arrow }}" alt="" class="hidden dark:block lg:min-w-[12px]">  
+              </div>
+            </button>
+
+            <div id="dropdown-{{ $index }}"
+              class="relative origin-top lg:absolute mt-2 lg:group-hover:block lg:transition-transform w-full lg:w-64 rounded-md shadow-lg bg-main border border-slate-800 ring-opacity-5 lg:left-1/2 lg:-translate-x-1/2 hidden lg:block lg:translate-y-3 lg:opacity-0 lg:pointer-events-none">
+              <div class="w-7 overflow-hidden fixed left-1/2 -translate-x-1/2 -mt-4 hidden lg:inline-block">
+                <div class=" h-4 w-4 bg-main rotate-45 transform origin-bottom-left"></div>
+               </div>
+              <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="dropdown-button-{{ $index }}">
+                {{ range .Children }}
+                {{ $childMenu := .URL | absURL }}
+                {{ $childPage := $current.RelPermalink | absURL }}
+                {{ $childActive := eq $childMenu $childPage }}
+                <a href="{{ .URL | absURL }}"
+                  class="w-full lg:w-auto text-slate-100 hover:text-slate-300 transition-colors block px-5 py-1 mb-1 text-sm rounded-md tracking-wider {{ if $childActive }}font-bold{{ else }}font-normal{{ end }}"
+                  role="menuitem">{{ .Name }}</a>
+                {{ end }}
+              </div>
+            </div>
+          </div>
+          <script>
+            document.addEventListener('DOMContentLoaded', () => {
+            {{ $id := replaceRE "[- ]" "_" .Name  }}
+            {{ $id := $id | urlize | safeJS }}
+            const mql{{ $id }} = window.matchMedia("(max-width: 1023px)");
+            const button{{ $id }} = document.getElementById("dropdown-button-{{ $index }}");
+            const dropdown{{ $id }} = document.getElementById("dropdown-{{ $index }}");
+
+              if (mql{{ $id }}.matches) {
+                button{{ $id }}.addEventListener('click', function () {
+                  dropdown{{ $id }}.classList.toggle('hidden');
+                  this.querySelector('.icon').classList.toggle('rotate-180');
+                });
+              };
+
+              if (!mql{{ $id }}.matches) {
+                  let isHoveringButton = false;
+                  let isHoveringDropdown = false;
+
+                  const showDropdown = () => {
+                  dropdown{{ $id }}.classList.remove("lg:opacity-0", "lg:translate-y-3", "lg:pointer-events-none");
+                  dropdown{{ $id }}.classList.add("lg:opacity-100", "lg:pointer-events-auto");
+                  button{{ $id }}.querySelector('.icon').classList.add("translate-y-1");
+                  };
+
+                  const hideDropdown = () => {
+                  if (!isHoveringButton && !isHoveringDropdown) {
+                      dropdown{{ $id }}.classList.remove("lg:opacity-100", "lg:pointer-events-auto");
+                      dropdown{{ $id }}.classList.add("lg:opacity-0", "lg:translate-y-3", "lg:pointer-events-none");
+                      button{{ $id }}.querySelector('.icon').classList.remove("translate-y-1");
+                  }
+                  };
+
+                  // Button hover
+                  button{{ $id }}.addEventListener("mouseenter", () => {
+                  isHoveringButton = true;
+                  showDropdown();
+                  });
+
+                  button{{ $id }}.addEventListener("mouseleave", () => {
+                  isHoveringButton = false;
+                  setTimeout(hideDropdown, 100); // allow time to reach dropdown
+                  });
+
+                  // Dropdown hover
+                  dropdown{{ $id }}.addEventListener("mouseenter", () => {
+                  isHoveringDropdown = true;
+                  });
+
+                  dropdown{{ $id }}.addEventListener("mouseleave", () => {
+                  isHoveringDropdown = false;
+                  setTimeout(hideDropdown, 100);
+                  });
+              };
+            });
+          </script>
+          {{ else }}
+          <li class="w-full lg:text-center">
+            <a href="{{ .URL | absURL }}"
+              class="{{ if $active }}font-bold{{ else }}font-normal{{ end }} whitespace-nowrap block py-2 px-4 text-slate-950 hover:text-slate-800 dark:text-slate-100 dark:hover:text-slate-300 transition-colors rounded lg:bg-transparent lg:text-primary-700 lg:p-0 font-poppins tracking-wider">{{
+              .Name }}</a>
+          </li>
+          {{ end }}
+          {{ end }}
+
+          <li class="js-login w-full my-3 lg:hidden">
+            <a href='{{ "login" | relURL }}'
+              class="text-black dark:text-white hover:bg-gradient-primary rounded-3xl after:rounded-3xl font-medium text-sm w-full block text-center py-3 hover:scale-105 transition-all border-gradient-primary font-poppins">Sign In</a>
+          </li>
+
+          <li class="js-signup w-full lg:hidden">
+            <a href='{{ "signup" | relURL }}'
+              class="rounded-3xl font-medium text-sm block text-center w-full py-3 hover:scale-105 transition-all font-poppins bg-style after-right-arrow after:relative after:top-[3px] after:left-[5px] hover:after:left-[7px]">Sign up</a>
+          </li>
+
+          <li class="js-logout w-full my-3 hidden">
+            <button
+              class="text-black dark:text-white hover:bg-gradient-primary rounded-3xl after:rounded-3xl font-medium text-sm w-full block text-center py-3 hover:scale-105 transition-all border-gradient-primary font-poppins">Logout</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<script>
+  const menuToggle = document.querySelector(
+    '[data-collapse-toggle="mobile-menu-2"]'
+  );
+  const mobileMenu = document.getElementById("mobile-menu-2");
+  const header = document.getElementById("header");
+
+  menuToggle.addEventListener("click", function () {
+    // Toggle the 'hidden' class on the mobile menu
+    mobileMenu.classList.toggle("hidden");
+  
+    // Toggle the SVG icons
+    const openIcon = menuToggle.querySelector("svg:first-of-type");
+    const closeIcon = menuToggle.querySelector("svg:last-of-type");
+    openIcon.classList.toggle("hidden");
+    closeIcon.classList.toggle("hidden");
+  
+    // Check the display state of the menu and update styles + dataset
+    const isMenuOpen = window.getComputedStyle(mobileMenu).display === "block";
+  
+    // Set scroll state on body
+    document.body.dataset.scroll = isMenuOpen ? "false" : "true";
+  
+    // Adjust header style
+    if (isMenuOpen) {
+      header.classList.add('backdrop-blur-lg');
+    } else {
+      if (window.scrollY <= 50) {
+        header.classList.remove('backdrop-blur-lg');
+      } else {
+        updateHeaderStyle();
+      }
+    }
+  });  
+
+  // Function to update the header style based on scroll position
+  function updateHeaderStyle() {
+    const header = document.querySelector("header");
+
+    // Apply blur if scrolled more than 50 pixels
+    if (window.scrollY > 50) {
+      header.classList.add('backdrop-blur-lg');
+    } else {
+      header.classList.remove('backdrop-blur-lg');
+    }
+  }
+
+  // Event listener for scroll
+  window.addEventListener("scroll", updateHeaderStyle);
+
+  // Check scroll position on page load
+  window.addEventListener("load", updateHeaderStyle);
+</script>

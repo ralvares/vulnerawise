@@ -1,0 +1,91 @@
+<!-- Minimal Cookie Consent Banner (Best Practice) -->
+<div id="cookieBox" style="display:none" class="fixed max-w-96 z-50 bg-main border-slate-700 dark:bg-slate-100 dark:border-slate-200 rounded-lg shadow-sm border px-5 py-3 right-5 bottom-5 transition-all duration-500 focus:outline-none" aria-live="polite">
+  <div class="space-y-4">
+    <h3 class="text-white dark:text-black font-poppins text-xl font-semibold">We use cookies</h3>
+    <p class="text-slate-300 dark:text-slate-700 font-poppins text-sm">
+      This website uses essential cookies to ensure its proper operation and, with your consent, may use additional cookies to understand how you interact with it. <a class="underline underline-offset-4" href='{{ "policies/" | relURL }}'>Learn more</a>.
+    </p>
+    <div class="flex gap-3 flex-wrap items-center pt-2 justify-between">
+      <button id="acceptCookies" class="acceptCookies px-5 py-1 bg-style rounded-full hover:scale-105 transition-transform text-black font-poppins">Accept</button>
+      <button id="settingsCookies" class="px-5 py-1 border-gradient-primary font-poppins after:rounded-full rounded-full hover:after:p-0 hover:bg-style hover:text-black hover:scale-105 transition-transform text-white dark:text-black">Settings</button>
+    </div>
+  </div>
+</div>
+<!-- Optionally, a more detailed modal for settings (not shown on first load) -->
+<div id="cookieSettingsModal" style="display:none" class="fixed max-w-lg z-50 bg-main border-slate-700 dark:bg-slate-100 dark:border-slate-200 rounded-lg shadow-sm border px-5 py-6 right-1/2 bottom-1/2 translate-x-1/2 translate-y-1/2 transition-all duration-500 focus:outline-none" aria-modal="true" role="dialog" tabindex="-1">
+  <div class="space-y-4">
+    <h3 class="text-white dark:text-black font-poppins text-xl font-semibold">Cookie Preferences</h3>
+    <div class="space-y-3">
+      <div class="flex justify-between items-center">
+        <span class="font-poppins text-slate-700 dark:text-slate-300">Essential cookies</span>
+        <span class="text-xs text-slate-400">Always enabled</span>
+      </div>
+      <div class="flex justify-between items-center">
+        <span class="font-poppins text-slate-700 dark:text-slate-300">Statistics cookies</span>
+        <span class="text-xs text-slate-400">Always enabled</span>
+      </div>
+      <div class="flex justify-between items-center">
+        <span class="font-poppins text-slate-700 dark:text-slate-300">Preferences cookies</span>
+        <label class="inline-flex relative items-center cursor-pointer">
+          <input type="checkbox" id="preferences" class="sr-only peer">
+          <div class="w-11 h-6 bg-slate-800 dark:bg-slate-200 peer-focus:outline-none rounded-full peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white dark:after:bg-black peer-checked:after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-lightBlue-600"></div>
+        </label>
+      </div>
+    </div>
+    <div class="flex gap-3 flex-wrap items-center pt-2 justify-end">
+      <button id="saveSettings" class="px-5 py-1 bg-style rounded-full hover:scale-105 transition-transform text-black font-poppins">Save</button>
+      <button id="closeSettings" class="px-5 py-1 border border-slate-400 rounded-full text-slate-600 dark:text-slate-800 font-poppins">Cancel</button>
+    </div>
+  </div>
+</div>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const cookieBox = document.getElementById("cookieBox");
+    const settingsModal = document.getElementById("cookieSettingsModal");
+    const acceptBtn = document.getElementById("acceptCookies");
+    const settingsBtn = document.getElementById("settingsCookies");
+    const saveSettingsBtn = document.getElementById("saveSettings");
+    const closeSettingsBtn = document.getElementById("closeSettings");
+    const preferencesCheckbox = document.getElementById("preferences");
+
+    // Show minimal consent only if not already accepted
+    if (!localStorage.getItem("cookieConsent")) {
+      setTimeout(() => { cookieBox.style.display = 'block'; }, 300);
+    }
+    // Accept button logic
+    if (acceptBtn) {
+      acceptBtn.addEventListener("click", () => {
+        localStorage.setItem("cookieConsent", "true");
+        localStorage.setItem("preferencesAccepted", "true");
+        cookieBox.style.display = 'none';
+      });
+    }
+    // Settings button logic
+    if (settingsBtn) {
+      settingsBtn.addEventListener("click", () => {
+        cookieBox.style.display = 'none';
+        settingsModal.style.display = 'block';
+        // Restore preferences state
+        preferencesCheckbox.checked = localStorage.getItem("preferencesAccepted") === "true";
+      });
+    }
+    // Save settings logic
+    if (saveSettingsBtn) {
+      saveSettingsBtn.addEventListener("click", () => {
+        localStorage.setItem("cookieConsent", "true");
+        localStorage.setItem("preferencesAccepted", preferencesCheckbox.checked ? "true" : "false");
+        settingsModal.style.display = 'none';
+      });
+    }
+    // Close settings modal
+    if (closeSettingsBtn) {
+      closeSettingsBtn.addEventListener("click", () => {
+        settingsModal.style.display = 'none';
+        // If consent not yet given, show minimal box again
+        if (!localStorage.getItem("cookieConsent")) {
+          cookieBox.style.display = 'block';
+        }
+      });
+    }
+  });
+</script>
